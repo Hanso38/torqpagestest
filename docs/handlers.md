@@ -5,7 +5,7 @@ Message Handlers
 There is a separate code directory containing message handler
 customizations. This is found at \$KDBCODE/handlers. Much of the code is
 derived from Simon Garland’s contributions to
-[code.kx](http://code.kx.com/wiki/Contrib/UsingDotz)[^7].
+[code.kx](http://code.kx.com/wiki/Contrib/UsingDotz).
 
 Every external interaction with a process goes through a message
 handler, and these can be modified to, for example, log or restrict

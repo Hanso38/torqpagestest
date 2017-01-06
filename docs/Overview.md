@@ -4,7 +4,7 @@ Overview
 What is kdb+?
 -------------
 
-kdb+ is the market leading timeseries database from Kx Systems[^3]. kdb+
+kdb+ is the market leading timeseries database from Kx Systems. kdb+
 is used predominently in the Financial Services sector to capture,
 process and analyse billions of records on a daily basis, with Kx
 counting almost all of the top tier investment banks as customers. kdb+
@@ -177,7 +177,7 @@ have several customised processes of our own:
     periodically throughout the day, and are useful when there is too
     much data to fit into memory and/or the end of day save operation
     needs to be speeded up. The concept is based on
-    [w.q](http://code.kx.com/wiki/Cookbook/w.q)[^4]
+    [w.q](http://code.kx.com/wiki/Cookbook/w.q)
 
 -   Tickerplant Log Replay: A process for replaying tickerplant log
     files to create on-disk data sets. Extended features are provided
@@ -226,7 +226,7 @@ A Large Scale Data Processing Platform
 
 One of the key drivers behind TorQ development has been to ensure all
 the tools necessary to build a large scale data processing platform are
-available. [kdb+tick](http://code.kx.com/wsvn/code/kx/kdb+tick)][^5]
+available. [kdb+tick](http://code.kx.com/wsvn/code/kx/kdb+tick)
 provides the basic building blocks, and a standard set-up usually looks
 something like this:
 
@@ -390,4 +390,4 @@ versions or operating systems.
 License
 -------
 
-This code is released under the MIT license[^6].
+This code is released under the MIT license.

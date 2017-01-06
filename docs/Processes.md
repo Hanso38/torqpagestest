@@ -384,7 +384,7 @@ However it should be possible to do most of the above from non kdb+
 clients. The officially supported APIs for Java, C\# and C allow the
 asynchronous methods above. For example, we can modify the try block in
 the main function of the [Java Grid
-Viewer](http://code.kx.com/wiki/Cookbook/InterfacingWithJava)[^17]:
+Viewer](http://code.kx.com/wiki/Cookbook/InterfacingWithJava):
 
     import java.awt.BorderLayout;
     import java.awt.Color;
@@ -482,7 +482,7 @@ See the top of the file for more information.
 Write Database (WDB) 
 --------------------
 
-The Write Database or WDB is based on w.q[^18]. This process features a
+The Write Database or WDB is based on w.q. This process features a
 number of modifications and enhancements over w.q:
 
 1.  Provides the option to write down to a custom partition scheme,

@@ -377,7 +377,7 @@ as usessl must be true and Windows does not usually find the correct
 certificate. The steps are:
 
 -   download
-    [this](https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt)[^8]
+    [this](https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt)
     and save it to your PC
 
 -   set
@@ -385,15 +385,15 @@ certificate. The steps are:
           CURLOPT_CAINFO=c:/path/to/cabundle_file/ca-bundle.crt 
 
 More information is available
-[here](http://richardwarrender.com/2007/05/the-secret-to-curl-in-php-on-windows/)[^9]
-and [here](http://curl.haxx.se/docs/caextract.html)[^10]
+[here](http://richardwarrender.com/2007/05/the-secret-to-curl-in-php-on-windows/)
+and [here](http://curl.haxx.se/docs/caextract.html)
 
 
 timezone.q
 ----------
 
 A slightly customised version of the timezone conversion functionality
-from code.kx[^11]. It loads a table of timezone information from
+from code.kx. It loads a table of timezone information from
 \$KDBCONFIG. See .api.p.tz.\*for more details.
 
 
@@ -421,7 +421,7 @@ parameters; the compression algorithm to use (0 - none, 1 - kdb+ IPC, 2
 - gzip), the compression blocksize as a power of 2 (between 12 and 19),
   and the level of compression to apply (from 0 - 9, applicable only for
   gzip). (For further information on -19! and the parameters used, see
-  code.kx.com[^12].)
+  code.kx.com.)
 
 The compressionconfig.csv file should have the following format:
 
@@ -528,7 +528,7 @@ dataloader.q
 This script contains some utility functions to assist in loading data
 from delimited files (e.g. comma separated, tab delimited). It is a more
 generic version of [the data loader example on
-code.kx](http://code.kx.com/wiki/Cookbook/LoadingFromLargeFiles)[^13].
+code.kx](http://code.kx.com/wiki/Cookbook/LoadingFromLargeFiles).
 The supplied functions allow data to be read in configurable size chunks
 and written out to the database. When all the data is written, the
 on-disk data is re-sorted and the attributes are applied. The main
@@ -605,7 +605,7 @@ tplogutils.q
 tplogutils.q contains functions for recovering tickerplant log files.
 Under certain circumstances the tickerplant log file can become corrupt
 by having an invalid sequence of bytes written to it. A log file can be
-recovered using a simple recovery method[^14]. However, this will only
+recovered using a simple recovery method. However, this will only
 recover messages up to the first invalid message. The recovery functions
 defined in tplogutils.q allow all valid messages to be recovered from
 the tickerplant log file.
@@ -724,7 +724,7 @@ help.q
 
 The standard help.q from code.kx provides help utilities in the console.
 This should be kept up to date with
-[[code.kx](http://code.kx.com/wsvn/code/kx/kdb+/d/help.q)][^15].
+[[code.kx](http://code.kx.com/wsvn/code/kx/kdb+/d/help.q)].
 
     q)help`                                                                                                                                                                                                                         
     adverb    | adverbs/operators
@@ -757,7 +757,7 @@ code.kx which are good candidates for inclusion. These could either be
 dropped into the common code directory, or if not globally applicable
 then in the code directory for either the process type or name. The full
 set of user contributed code is documented
-[here](http://code.kx.com/wiki/Contrib)[^16].
+[here](http://code.kx.com/wiki/Contrib).
 
 
 Full API

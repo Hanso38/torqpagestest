@@ -13,8 +13,8 @@ The company is currently focussed on four key areas, all of which are
 conducted either on client site or near-shore:
 
 -   Kdb+ Consulting Services: Development, Training and Support. We also
-    provide [online kdb+ training](http://training.aquaq.co.uk)[^1] and
-    [kdb+ remote support](http://support.aquaq.co.uk)[^2].
+    provide [online kdb+ training](http://training.aquaq.co.uk) and
+    [kdb+ remote support](http://support.aquaq.co.uk).
 
 -   Real Time GUI Development Services
 
