@@ -38,7 +38,7 @@ Feedback
 
 Please submit suggestions, improvements and bug reports to
 
-info@aquaq.co.uk
+<info@aquaq.co.uk>
 
 Contents
 ================
