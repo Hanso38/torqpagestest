@@ -1,3 +1,5 @@
+{% include sidebar.html %}
+
 <img src="graphics/logo.png" width="300">
 
 email:
