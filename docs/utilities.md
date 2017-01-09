@@ -1,3 +1,42 @@
+{% include sidebar-left.html %}
+
+<div id="sidebarOverview">
+  <ul style="list-style-type: none;">
+   <li style="list-style-type: none;"><a href="#ut">Utilities</a></li>
+   <li style="list-style-type: none;"><a href="#api.q">api.q</a></li>
+   <li style="list-style-type: none;"><a href="#tim">timer.q</a></li>
+   <li style="list-style-type: none;"><a href="#async">async.q</a></li>
+   <li style="list-style-type: none;"><a href="#cache">cache.q</a></li>
+   <li style="list-style-type: none;"><a href="#email">email.q</a></li>
+   <li style="list-style-type: none;"><a href="#tz">timezone.q</a></li>
+   <li style="list-style-type: none;"><a href="#com">compress.q</a></li>
+<li style="list-style-type: none;"><a href="#data">dataloader.q</a></li>
+   <li style="list-style-type: none;"><a href="#sub">subscriptions.q</a></li>
+   <li style="list-style-type: none;"><a href="#ps">pubsub.q</a></li>
+   <li style="list-style-type: none;"><a href="#tp">tplogutils.q</a></li>
+   <li style="list-style-type: none;"><a href="#mon">monitoringchecks.q</a></li>
+<li style="list-style-type: none;"><a href="#hb">heartbeat.q</a></li>
+   <li style="list-style-type: none;"><a href="#wu">dbwriteutils.q</a></li>
+   <li style="list-style-type: none;"><a href="#help">help.q</a></li>
+   <li style="list-style-type: none;"><a href="#html">html.q</a></li>
+   <li style="list-style-type: none;"><a href="#addu">Additional Utilities</a></li>
+   <li style="list-style-type: none;"><a href="#api">Full API</a></li>
+   <li style="list-style-type: none;"><a href="#u.q">Modified u.q</a></li>
+ </ul>
+</div>
+
+<style>
+ div#sidebarOverview {
+        position: fixed;
+        right: 0;
+        font-size: small;
+        top: 30%;
+        list-style-type: none;
+ }
+</style>
+
+
+<a name="ut"></a>
 
 Utilities
 =========
@@ -5,6 +44,7 @@ Utilities
 We have provided several utility scripts, which either implement
 developer aids or standard operations which are useful across processes.
 
+<a name="api.q"></a>
 
 api.q
 -----
@@ -94,6 +134,7 @@ given its definition. This can be useful in debugging.
     q)).api.whereami[.z.s]                                                                                                                                                                                                                                                        
     `..g
 
+<a name="tim"></a>
 
 timer.q
 -------
@@ -123,6 +164,7 @@ Both mode 0 and mode 1 have the potential for causing the timer to back
 up if the finish time T2 is after the next schedule time. See
 .api.p“.timer.\*”for more details.
 
+<a name="async"></a>
 
 async.q
 -------
@@ -197,6 +239,7 @@ client when ready.
 
 For more details, see .api.p“.async.\*”.
 
+<a name="cache"></a>
 
 cache.q
 -------
@@ -274,6 +317,7 @@ The cache performance is tracked:
 
 See .api.p.cache.\*for more details.
 
+<a name="email"></a>
 
 email.q
 -------
@@ -388,6 +432,7 @@ More information is available
 [here](http://richardwarrender.com/2007/05/the-secret-to-curl-in-php-on-windows/)
 and [here](http://curl.haxx.se/docs/caextract.html)
 
+<a name="tz"></a>
 
 timezone.q
 ----------
@@ -396,6 +441,7 @@ A slightly customised version of the timezone conversion functionality
 from code.kx. It loads a table of timezone information from
 \$KDBCONFIG. See .api.p.tz.\*for more details.
 
+<a name="com"></a>
 
 compress.q
 ----------
@@ -521,6 +567,7 @@ can be found in .cmp.statstab:
 A note for windows users - windows supports compression only with a
 compression blocksize of 16 or more.
 
+<a name="data"></a>
 
 dataloader.q 
 ------------
@@ -556,6 +603,7 @@ Example usage:
     .loader.loadallfiles[`headers`types`separator`tablename`dbdir!(`sym`time`price`volume;"SP  FI";",";`trade;`:hdb); `:TDC/toload]
     .loader.loadallfiles[`headers`types`separator`tablename`dbdir`dataprocessfunc`chunksize`partitiontype`partitioncol`compression`gc!(`sym`time`price`volume;"SP  FI";enlist",";`tradesummary;`:hdb;{[p;t] select sum size, max price by date:time.date from t};`int$500*2 xexp 20;`month;`date;16 1 0;1b); `:TDC/toload]
 
+<a name="sub"></a>
 
 subscriptions.q
 ---------------
@@ -586,6 +634,7 @@ tickerplants:
 
 See .api.p“.sub.\*” for more details.
 
+<a name="ps"></a>
 
 pubsub.q
 --------
@@ -598,6 +647,7 @@ pubsub.q (make sure u.\[k|q\] is listed before pubsub.q in order.txt)
 then publish and subscribe will be implemented. You can also build out
 this file to add your own publish and subscribe routines as required.
 
+<a name="tp"></a>
 
 tplogutils.q
 ------------
@@ -610,6 +660,7 @@ recover messages up to the first invalid message. The recovery functions
 defined in tplogutils.q allow all valid messages to be recovered from
 the tickerplant log file.
 
+<a name="mon"></a>
 
 monitoringchecks.q
 ------------------
@@ -631,6 +682,7 @@ checks. They include checks to ensure:
 These checks are intended to be run by the reporter process on a
 schedule, and any alerts emailed to an appropriate recipient list.
 
+<a name="hb"></a>
 
 heartbeat.q
 -----------
@@ -642,6 +694,7 @@ components. The heartbeat table contains a heartbeat time and counter.
 The heartbeat script contains functions to handle and process heartbeats
 and manage upstream process failures. See .api.p.hb.\*for details.
 
+<a name="wu"></a>
 
 dbwriteutils.q
 --------------
@@ -718,6 +771,7 @@ Instead of having to create a separate definition of customised
 manipulation in each process, it can be done in a single location and
 invokved in each process.
 
+<a name="help"></a>
 
 help.q
 ------
@@ -739,6 +793,7 @@ This should be kept up to date with
     temporal  | temporal - date & time casts
     verbs     | verbs/functions
 
+<a name="html"></a>
 
 html.q
 ------
@@ -748,6 +803,7 @@ Monitoring process. It includes functions to format dates, tables to csv
 to configure the HTML file to work on the correct process. It is
 accessible from the `.html` namespace.
 
+<a name="addu"></a>
 
 Additional Utilities
 --------------------
@@ -759,6 +815,7 @@ then in the code directory for either the process type or name. The full
 set of user contributed code is documented
 [here](http://code.kx.com/wiki/Contrib).
 
+<a name="api"></a>
 
 Full API
 --------
@@ -804,7 +861,7 @@ namespaces is below- run .api.u namespace\*to list the functions.
 |   .api    |           API management API           |
 
   
-
+<a name="u.q"></a>
 
 Modified u.q
 ------------
@@ -816,23 +873,3 @@ would serialise it separately for each subscriber. To take advantage of
 this, we’ve modified u.q. This can be turned off by setting .u.broadcast
 to false. It is enabled by default, but will only override default
 publishing if the kdb+ version being used is 3.4 or after.
-
-Contents
-================
-
-[Home](index.md)
-
-[Company Overview](CompanyOverview.md)
-
-[TorQ Overview](Overview.md)
-
-[Getting Started](gettingstarted.md)
-
-[Message Handlers](handlers.md)
-
-[Visualisation](visualisation.md)
-
-[Processes](Processes.md)
-
-[What Can We Do For You?](whatcanwedo.md)
-

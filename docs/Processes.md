@@ -1,3 +1,35 @@
+{% include sidebar-left.html %}
+
+<div id="sidebarOverview">
+  <ul style="list-style-type: none;">
+   <li style="list-style-type: none;"><a href="#Processes">Processes</a></li>
+   <li style="list-style-type: none;"><a href="#disc">Discovery Service</a></li>
+   <li style="list-style-type: none;"><a href="#gate">Gateway</a></li>
+   <li style="list-style-type: none;"><a href="#rdb">Real Time Database</a></li>
+   <li style="list-style-type: none;"><a href="#wdb">Write Database</a></li>
+   <li style="list-style-type: none;"><a href="#tick">Tickerplant Log Replay</a></li>
+   <li style="list-style-type: none;"><a href="#house">Housekeeping</a></li>
+   <li style="list-style-type: none;"><a href="#file">File Alerter</a></li>
+<li style="list-style-type: none;"><a href="#report">Reporter</a></li>
+   <li style="list-style-type: none;"><a href="#monitor">Monitor</a></li>
+   <li style="list-style-type: none;"><a href="#compress">Compression</a></li>
+   <li style="list-style-type: none;"><a href="#kill">Kill</a></li>
+   <li style="list-style-type: none;"><a href="#chained">Chained Tickerplant</a></li>
+<li style="list-style-type: none;"><a href="#kdb">Integration With kdb+ Tick</a></li>
+ </ul>
+</div>
+
+<style>
+ div#sidebarOverview {
+        position: fixed;
+        right: 0;
+        font-size: small;
+        top: 30%;
+        list-style-type: none;
+ }
+</style>
+
+<a name="Processes"></a>
 
 Processes
 =========
@@ -25,6 +57,7 @@ except for discovery services which must have a process type of
     aquaq,20001,monitor,monitor1
     aquaq,20002,housekeeping,hk1
 
+<a name="disc"></a>
 
 Discovery Service 
 -----------------
@@ -89,6 +122,7 @@ table.
     hdb3         hdb             :aquaq:5012  8  0    2014.01.22D17:06:18.647349000 2014.01.22D17:06:18.647349000      `date`tables!(2014.01.13 2014.01.14;`fxquotes`heartbeat`logmsg`quotes`trades)
     gateway1     gateway         :aquaq:5020  10 0    2014.01.22D17:06:32.152836000 2014.01.22D17:06:32.152836000      ()!()
 
+<a name="gate"></a>
 
 Gateway 
 -------
@@ -453,6 +487,7 @@ Viewer](http://code.kx.com/wiki/Cookbook/InterfacingWithJava):
 Some of the unofficially supported APIs may only allow synchronous calls
 to be made.
 
+<a name="rdb"></a>
 
 Real Time Database (RDB) 
 ------------------------
@@ -478,6 +513,7 @@ The modifications from the standard r.q include:
 
 See the top of the file for more information.
 
+<a name="wdb"></a>
 
 Write Database (WDB) 
 --------------------
@@ -577,6 +613,7 @@ the optional method may provide a significant time saving, upwards of
 of day event, as joining data is generally less memory intensive than
 sorting.
 
+<a name="tick"></a>
 
 Tickerplant Log Replay
 ----------------------
@@ -617,6 +654,8 @@ The tickerplant log replay script has extended usage information which
 can be accessed with -.replay.usage.
 
     q torq.q -debug -load code/processes/tickerlogreplay.q -p 9990 -.replay.usage
+
+<a name="house"></a>
 
 Housekeeping 
 ------------
@@ -714,6 +753,8 @@ add the function to the windows namespace to). Usage information can be
 accessed using the ‘-hkusage’ flag:
 
     q torq.q -load code/processes/housekeeping.q -p 9999 -proctype housekeeping -procname hk1 -debug -hkusage
+
+<a name="file"></a>
 
 File Alerter 
 ------------
@@ -832,6 +873,7 @@ in use. It should also be noted that Windows does not have an inbuilt
 md5 hashing function so the file alerter will only detect different
 versions of files if the filename or filesize changes.
 
+<a name="report"></a>
 
 Reporter 
 --------
@@ -1042,6 +1084,7 @@ time.
     memoryusage|.Q.w[]|writetofile["./output/";"memory.csv"]|gateway1|{enlist raze x}|rdb hdb||09:30|16:00|00:10|00:00:10|2 3 4 5 6
     onetimequery|10#.usage.usage|writetofile["./output/";"onetime.csv"]|||rdb||10:00|10:01|00:01|00:00:10|2 3 4 5 6
 
+<a name="monitor"></a>
 
 Monitor
 -------
@@ -1104,6 +1147,7 @@ monitor process in the kdb+ side. The features of the front end include:
 It is accessible by going to the url `http://HOST:PORT/.non?monitorui`\
 A screenshot of the front end can be seen in fig \[fig:html5frontend\].
 
+<a name="compress"></a>
 
 Compression 
 -----------
@@ -1129,6 +1173,7 @@ The process is run like other TorQ processes:
 Modify the settings file or override variables from the command line as
 appropriate.
 
+<a name="kill"></a>
 
 Kill
 ----
@@ -1157,6 +1202,8 @@ The kill process can also be used to kill only specific named processes
 within the process types:
 
     q torq.q -load code/processes/kill.q -p 20000 -killnames hdb1 hdb2
+
+<a name="chained"></a>
 
 Chained Tickerplant
 -------------------
@@ -1202,6 +1249,7 @@ and are under the `.ctp` namespace.
 
 
 
+<a name="kdb"></a>
 
 Integration with kdb+tick
 =========================
@@ -1209,23 +1257,3 @@ Integration with kdb+tick
 AquaQ TorQ can be fully integrated with kdb+tick. For further details,
 use one of the AquaQ TorQ Starter packs to set up a production kdb+ data
 capture system.
-
-Contents
-================
-
-[Home](index.md)
-
-[Company Overview](CompanyOverview.md)
-
-[TorQ Overview](Overview.md)
-
-[Getting Started](gettingstarted.md)
-
-[Message Handlers](handlers.md)
-
-[Utilities](utilities.md)
-
-[Visualisation](visualisation.md)
-
-[What Can We Do For You?](whatcanwedo.md)
-

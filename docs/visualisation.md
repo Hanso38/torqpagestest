@@ -1,9 +1,36 @@
+{% include sidebar-left.html %}
+
+<div id="sidebarOverview">
+  <ul style="list-style-type: none;">
+   <li style="list-style-type: none;"><a href="#vis">Visualisation</a></li>
+   <li style="list-style-type: none;"><a href="#ut">kdb+ Utilities</a></li>
+   <li style="list-style-type: none;"><a href="#java">JavaScript Utilities</a></li>
+   <li style="list-style-type: none;"><a href="#out">Outline</a></li>
+   <li style="list-style-type: none;"><a href="#eg">Example</a></li>
+   <li style="list-style-type: none;"><a href="#work">Further Work</a></li>
+ </ul>
+</div>
+
+<style>
+ div#sidebarOverview {
+        position: fixed;
+        right: 0;
+        font-size: small;
+        top: 30%;
+        list-style-type: none;
+ }
+</style>
+
+<a name="vis"></a>
+
 Visualisation
 =============
 
 kdb+ supports websockets and so HTML5 GUIs can be built. We have
 incorporated a set of server side and client side utilities to ease HTML
 GUI development.
+
+<a name="ut"></a>
 
 kdb+ Utilities
 --------------
@@ -27,6 +54,8 @@ from Kx Systems. The supplied functionality includes:
     process can serve a page connecting back to itself no matter which
     host or port it is running on.
 
+<a name="java"></a>
+
 JavaScript Utilities
 --------------------
 
@@ -40,6 +69,8 @@ allows you to:
 -   sending queries;
 
 -   binding results returned from kdb+ to updates in the webpage.
+
+<a name="out"></a>
 
 Outline
 -------
@@ -156,6 +187,8 @@ Errors can be displayed by binding the event called “error”.
       $statusMsg.html("Error - " + data);
     });
 
+<a name="eg"></a>
+
 Example
 -------
 
@@ -165,6 +198,8 @@ allow all processes to publish updates. It should be noted that this is
 not intended as a production monitoring visualisation screen, moreso a
 demonstration of functionality. See section monitorgui for more
 details.
+
+<a name="work"></a>
 
 Further Work
 ------------
@@ -180,23 +215,3 @@ Further work planned includes:
 
 -   allow multiple websocket connections to be maintained at the same
     time.
-
-Contents
-================
-
-[Home](index.md)
-
-[Company Overview](CompanyOverview.md)
-
-[TorQ Overview](Overview.md)
-
-[Getting Started](gettingstarted.md)
-
-[Message Handlers](handlers.md)
-
-[Utilities](utilities.md)
-
-[Processes](Processes.md)
-
-[What Can We Do For You?](whatcanwedo.md)
-

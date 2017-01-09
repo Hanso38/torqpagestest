@@ -1,3 +1,5 @@
+{% include sidebar-left.html %}
+
 Company Overview
 ================
 

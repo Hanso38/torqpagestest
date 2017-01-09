@@ -1,3 +1,5 @@
+{% include sidebar-left.html %}
+
 What Can We Do For You?
 =======================
 
@@ -39,25 +41,4 @@ Feedback
 Please submit suggestions, improvements and bug reports to
 
 <info@aquaq.co.uk>
-
-Contents
-================
-
-[Home](index.md)
-
-[Company Overview](CompanyOverview.md)
-
-[TorQ Overview](Overview.md)
-
-[Getting Started](gettingstarted.md)
-
-[Message Handlers](handlers.md)
-
-[Utilities](utilities.md)
-
-[Visualisation](visualisation.md)
-
-[Processes](Processes.md)
-
-[What Can We Do For You?](whatcanwedo.md)
 
