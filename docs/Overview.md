@@ -1,6 +1,9 @@
+{% include sidebarOverview.html %}
+
 Overview
 ========
 
+<a name="what?"></a>
 What is kdb+?
 -------------
 
@@ -17,6 +20,7 @@ sectors which have good use cases for kdb+ include utilities,
 pharmaceuticals, telecoms, manufacturing, retail and any sector
 utilising telemetry or sensor data.
 
+<a name="TorQ?"></a>
 What is AquaQ TorQ?
 -------------------
 
@@ -221,6 +225,7 @@ have several customised processes of our own:
 -   Kill: A process used to kill other processes, optionally using the
     Discovery Service to locate them.
 
+<a name="Large?"></a>
 A Large Scale Data Processing Platform
 --------------------------------------
 
@@ -276,6 +281,7 @@ Other common production features include:
     tidied up, tickerplant log files are compressed/moved in a timely
     fashion etc.
 
+<a name="Summary?"></a>
 Do I Really Have to Read This Whole Document?
 ---------------------------------------------
 
@@ -378,6 +384,7 @@ information on what can be modified. In addition:
         logroll:1b		/- whether to roll the std out/err logs daily
         ... etc ...
 
+<a name="OS"></a>
 Operating System and kdb+ Version
 ---------------------------------
 
@@ -387,6 +394,7 @@ this incompatible with Solaris or Windows. It has also been tested with
 kdb+ 3.1 and 2.8. Please report any incompatibilities with other kdb+
 versions or operating systems.
 
+<a name="License"></a>
 License
 -------
 
