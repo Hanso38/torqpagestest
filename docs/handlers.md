@@ -1,3 +1,5 @@
+{% include sidebar-left.html %}
+
 <div id="sidebarOverview">
   <ul style="list-style-type: none;">
    <li style="list-style-type: none;"><a href="#hand">Message Handlers</a></li>
