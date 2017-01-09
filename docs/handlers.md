@@ -1,3 +1,35 @@
+<div id="sidebarOverview">
+  <ul style="list-style-type: none;">
+   <li style="list-style-type: none;"><a href="#hand">Message Handlers</a></li>
+   <li style="list-style-type: none;"><a href="#logu">logusage.q</a></li>
+   <li style="list-style-type: none;"><a href="#control">controlaccess.q</a></li>
+   <li style="list-style-type: none;"><a href="#track">trackclients.q</a></li>
+   <li style="list-style-type: none;"><a href="#tracks">trackservers.q</a></li>
+   <li style="list-style-type: none;"><a href="#zps">zpsignore.q</a></li>
+   <li style="list-style-type: none;"><a href="#write">writeaccess.q</a></li>
+   <li style="list-style-type: none;"><a href="#dia">Diagnostic Reporting</a></li>
+<li style="list-style-type: none;"><a href="#conn">Connection Management</a></li>
+   <li style="list-style-type: none;"><a href="#Connect">Connections</a></li>
+   <li style="list-style-type: none;"><a href="#Proc">Process Attributes</a></li>
+   <li style="list-style-type: none;"><a href="#pass">Connection Passwords</a></li>
+   <li style="list-style-type: none;"><a href="#handle">Retrieving and Using Handles</a></li>
+<li style="list-style-type: none;"><a href="#nontorq">Connecting to Non-TorQ Processes</a></li>
+   <li style="list-style-type: none;"><a href="#man">Manually Adding and Using Connections</a></li>
+<li style="list-style-type: none;"><a href="#ipc">IPC Types</a></li>
+
+ </ul>
+</div>
+
+<style>
+ div#sidebarOverview {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        list-style-type: none;
+ }
+</style>
+
+<a name="hand"></a>
 
 Message Handlers
 ================
@@ -53,6 +85,7 @@ remaining configuration of the other message handler files.
     logroll:1b		/- Whether or not to roll the log file
     			/- automatically (on a daily schedule)
 
+<a name="logu"></a>
 
 logusage.q
 ----------
@@ -102,6 +135,7 @@ The following fields are logged in .usage.usage:
 
 
 
+<a name="control"></a>
 
 controlaccess.q
 ---------------
@@ -143,6 +177,7 @@ user, or function) defined in \[procname\]\_.csv will override those in
 When a client makes a query which is refused by the permissioning layer,
 an error will be raised and logged in .usuage.usage if it is enabled.
 
+<a name="track"></a>
 
 trackclients.q
 --------------
@@ -158,6 +193,7 @@ client details, the number of queries it has run, the last time it ran a
 query, the number of failed queries and the cumulative size of results
 returned to it.
 
+<a name="tracks"></a>
 
 trackservers.q
 --------------
@@ -166,6 +202,7 @@ trackservers.q is used to register and maintain handles to external
 servers. It is a heavily modified version of trackservers.q from
 code.kx. It is explained more in section connectionmanagement.
 
+<a name="zps"></a>
 
 zpsignore.q
 -----------
@@ -175,6 +212,7 @@ and to bypass all further message handler checks for messages matching
 the pattern. This is useful for handling update messages published to a
 process from a data source.
 
+<a name="write"></a>
 
 writeaccess.q
 -------------
@@ -188,6 +226,7 @@ versions of KDB+ prior to 3.3, this feature must be disabled. An attempt
 to use this feature on previous KDB+ versions will result in an error
 and the relevant process exiting.
 
+<a name="dia"></a>
 
 Diagnostic Reporting
 --------------------
@@ -214,6 +253,7 @@ and the overall health of the system. Similarly it would be
 straightforward to set up periodic publication to a central repository
 to have a single point for system diagnostic statistics.
 
+<a name="conn"></a>
 
 Connection Management 
 =====================
@@ -247,6 +287,7 @@ is used the count and last query time are updated.
     endp      | 0Np
     attributes| `datacentre`country!`essex`uk
 
+<a name="Connect"></a>
 
 Connections
 -----------
@@ -263,6 +304,7 @@ must be called to initialise the connections. When connections are
 closed, the connection table is automatically updated. The process can
 be set to periodically retry connections.
 
+<a name="Proc"></a>
 
 Process Attributes
 ------------------
@@ -286,6 +328,7 @@ Potential fields for attributes include:
 
 -   any other fields of relevance.
 
+<a name="pass"></a>
 
 Connection Passwords
 --------------------
@@ -298,6 +341,7 @@ overridden by one for the process type, which is itself overridden by
 one for the process name. For greater security, the
 .servers.loadpassword function should be modified.
 
+<a name="handle"></a>
 
 Retrieving and Using Handles
 ----------------------------
@@ -384,6 +428,7 @@ valid connections. Both take two parameters:
 
 -   selection-algorithm: can be one of any, last or roundrobin.
 
+<a name="nontorq"></a>
 
 Connecting To Non-TorQ Processes
 --------------------------------
@@ -407,6 +452,7 @@ Example of nontorqprocess.csv file:
     aquaq,5533,hdb,extproc01
     aquaq,5577,hdb,extproc02
 
+<a name="man"></a>
 
 Manually Adding And Using Connections
 -------------------------------------
@@ -414,6 +460,7 @@ Manually Adding And Using Connections
 Connections can also be manually added and used. See .api.p“.servers.\*”
 for details.
 
+<a name="ipc"></a>
 
 IPC types
 ---------
@@ -438,24 +485,5 @@ following : timeout, access. It will also not fallback for SSL/TLS
 At the time of writing, using unix domain sockets syntax on windows will
 appear to work whilst it’s actually falling back to tcp in the
 background. This can be misleading so we disabled using them on windows.
-
-Contents
-===================
-
-[Home](index.md)
-
-[Company Overview](CompanyOverview.md)
-
-[TorQ Overview](Overview.md)
-
-[Getting Started](gettingstarted.md)
-
-[Utilities](utilities.md)
-
-[Visualisation](visualisation.md)
-
-[Processes](Processes.md)
-
-[What Can We Do For You?](whatcanwedo.md)
 
 

@@ -1,3 +1,27 @@
+<div id="sidebarOverview">
+  <ul style="list-style-type: none;">
+   <li style="list-style-type: none;"><a href="#start">Getting Started</a></li>
+   <li style="list-style-type: none;"><a href="#torq">Using torq.q</a></li>
+   <li style="list-style-type: none;"><a href="#env">Environment Variables</a></li>
+   <li style="list-style-type: none;"><a href="#procid">Process Identification</a></li>
+   <li style="list-style-type: none;"><a href="#logging">Logging</a></li>
+   <li style="list-style-type: none;"><a href="#config">Configuration Loading</a></li>
+   <li style="list-style-type: none;"><a href="#code">Code Loading</a></li>
+   <li style="list-style-type: none;"><a href="#init">Initialization Errors</a></li>
+ </ul>
+</div>
+
+<style>
+ div#sidebarOverview {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        list-style-type: none;
+ }
+</style>
+
+<a name="start"></a>
+
 Getting Started
 ===============
 
@@ -36,6 +60,8 @@ configuration. We have tried to keep as much as possible in
 configuration files, but if the parameter either has a global effect on
 the process or if it is required to be known before the configuration is
 read, then it is a command line parameter.
+
+<a name="torq"></a>
 
 Using torq.q
 ------------
@@ -88,6 +114,8 @@ will take priority over any other predefined value (.e.g. in a
 configuration or wrapper). Variable names should be supplied with full
 qualification e.g. -.servers.HOPENTIMEOUT 5000.
 
+<a name="env"></a>
+
 Environment Variables 
 ---------------------
 
@@ -105,6 +133,8 @@ Five environment variables are required:
 torq.q will check for these and exit if they are not set. If torq.q is
 being sourced from another script, the required environment variables
 can be extended by setting .proc.envvars before loading torq.q.
+
+<a name="procid"></a>
 
 Process Identification
 ----------------------
@@ -166,6 +196,8 @@ procname were both passed in as command line parameters. If both of
 these parameters are passed in then default configuration settings will
 be used.
 
+<a name="logging"></a>
+
 Logging
 -------
 
@@ -185,6 +217,8 @@ directory. The log files created are:
 The date suffix can be overridden by modifying the .proc.logtimestamp
 function and sourcing torq.q from another script. This could, for
 example, change the suffixing to a full timestamp.
+
+<a name="config"></a>
 
 Configuration Loading
 ---------------------
@@ -233,6 +267,8 @@ directory.
 
 All configuration is loaded before code.
 
+<a name="code"></a>
+
 Code Loading
 ------------
 
@@ -255,6 +291,8 @@ be loaded but after all the files listed in order.txt have been loaded.
 Additional directories can be loaded using the -loaddir command line
 parameter.
 
+<a name="init"></a>
+
 Initialization Errors
 ---------------------
 
@@ -268,24 +306,4 @@ continue. This is useful if, for example, the error is encountered
 loading a file of stored procedures which may not be invoked and can be
 reloaded later. With -stop the process will halt at the point of the
 error but will not exit. Both -stop and -trap are useful for debugging.
-
-Contents
-=================
-
-[Home](index.md)
-
-[Company Overview](CompanyOverview.md)
-
-[TorQ Overview](Overview.md)
-
-[Message Handlers](handlers.md)
-
-[Utilities](utilities.md)
-
-[Visualisation](visualisation.md)
-
-[Processes](Processes.md)
-
-[What Can We Do For You?](whatcanwedo.md)
-
 
