@@ -20,7 +20,10 @@
 Overview
 ========
 
-<a name="what?"><h2>What is kdb+</h2></a>
+<a name="what?"></a>
+
+What is kdb+
+------------
 
 kdb+ is the market leading timeseries database from Kx Systems. kdb+
 is used predominently in the Financial Services sector to capture,
@@ -35,7 +38,10 @@ sectors which have good use cases for kdb+ include utilities,
 pharmaceuticals, telecoms, manufacturing, retail and any sector
 utilising telemetry or sensor data.
 
-<a name="TorQ?"><h2>What is AquaQ TorQ?</h2></a>
+<a name="TorQ?"></a>
+
+What is AquaQ TorQ?
+-------------------
 
 AquaQ TorQ is a framework which forms the basis of a production kdb+
 system by implementing some core functionality and utilities on top of
@@ -238,7 +244,10 @@ have several customised processes of our own:
 -   Kill: A process used to kill other processes, optionally using the
     Discovery Service to locate them.
 
-<a name="Large?"><h2>A Large Scale Data Processing Platform</h2></a>
+<a name="Large?"></a>
+
+A Large Scale Data Processing Platform
+--------------------------------------
 
 One of the key drivers behind TorQ development has been to ensure all
 the tools necessary to build a large scale data processing platform are
@@ -292,7 +301,10 @@ Other common production features include:
     tidied up, tickerplant log files are compressed/moved in a timely
     fashion etc.
 
-<a name="Summary?"><h2>Do I Really Have to Read This Whole Document?</h2></a>
+<a name="Summary?"></a>
+
+Do I Really Have to Read This Whole Document?
+-----------------------------------------------
 
 Hopefully not. The core of AquaQ TorQ is a script called torq.q and we
 have tried to make it as descriptive as possible, so perhaps that will
@@ -393,7 +405,10 @@ information on what can be modified. In addition:
         logroll:1b		/- whether to roll the std out/err logs daily
         ... etc ...
 
-<a name="OS"><h2>Operating System and kdb+ Version</h2></a>
+<a name="OS"></a>
+
+Operating System and kdb+ Version
+----------------------------------
 
 AquaQ TorQ has been built and tested on the linux and OSX operating
 systems though as far as we are aware there is nothing that would make
@@ -401,7 +416,10 @@ this incompatible with Solaris or Windows. It has also been tested with
 kdb+ 3.1 and 2.8. Please report any incompatibilities with other kdb+
 versions or operating systems.
 
-<a name="License"><h2>License</h2></a>
+<a name="License"></a>
+
+License
+-------
 
 This code is released under the MIT license.
 
