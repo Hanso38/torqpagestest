@@ -24,7 +24,7 @@
  div#sidebarOverview {
         position: fixed;
         right: 0;
-        top: 50%;
+        top: 30%;
         font-size:50%
         list-style-type: none;
  }
