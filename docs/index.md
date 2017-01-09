@@ -1,4 +1,4 @@
-{% include sidebar.html %}
+{% include sidebar-left.html %}
 
 <img src="graphics/logo.png" width="300">
 
