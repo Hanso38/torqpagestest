@@ -1,4 +1,3 @@
-{% include sidebarOverview.html %}
 
 Overview
 ========
