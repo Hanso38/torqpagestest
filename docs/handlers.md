@@ -25,6 +25,7 @@
         position: fixed;
         right: 0;
         top: 50%;
+        font-size:50%
         list-style-type: none;
  }
 </style>
