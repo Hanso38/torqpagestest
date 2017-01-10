@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Handlers - TorQ</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Handlers";
+    var mkdocs_page_input_path = "handlers.md";
+    var mkdocs_page_url = "/handlers/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> TorQ</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Overview/">About</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gettingstarted/">GettingStarted</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../utilities/">Utilities</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Handlers</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#message-handlers">Message Handlers</a></li>
+                
+                    <li><a class="toctree-l4" href="#logusageq">logusage.q</a></li>
+                
+                    <li><a class="toctree-l4" href="#controlaccessq">controlaccess.q</a></li>
+                
+                    <li><a class="toctree-l4" href="#trackclientsq">trackclients.q</a></li>
+                
+                    <li><a class="toctree-l4" href="#trackserversq">trackservers.q</a></li>
+                
+                    <li><a class="toctree-l4" href="#zpsignoreq">zpsignore.q</a></li>
+                
+                    <li><a class="toctree-l4" href="#writeaccessq">writeaccess.q</a></li>
+                
+                    <li><a class="toctree-l4" href="#diagnostic-reporting">Diagnostic Reporting</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#connection-management">Connection Management</a></li>
+                
+                    <li><a class="toctree-l4" href="#connections">Connections</a></li>
+                
+                    <li><a class="toctree-l4" href="#process-attributes">Process Attributes</a></li>
+                
+                    <li><a class="toctree-l4" href="#connection-passwords">Connection Passwords</a></li>
+                
+                    <li><a class="toctree-l4" href="#retrieving-and-using-handles">Retrieving and Using Handles</a></li>
+                
+                    <li><a class="toctree-l4" href="#connecting-to-non-torq-processes">Connecting To Non-TorQ Processes</a></li>
+                
+                    <li><a class="toctree-l4" href="#manually-adding-and-using-connections">Manually Adding And Using Connections</a></li>
+                
+                    <li><a class="toctree-l4" href="#ipc-types">IPC types</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Processes/">Processes</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../visualisation/">Visualisation</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">TorQ</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Handlers</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="message-handlers">Message Handlers</h1>
+<p>There is a separate code directory containing message handler
+customizations. This is found at \$KDBCODE/handlers. Much of the code is
+derived from Simon Garland’s contributions to
+<a href="http://code.kx.com/wiki/Contrib/UsingDotz">code.kx</a>.</p>
+<p>Every external interaction with a process goes through a message
+handler, and these can be modified to, for example, log or restrict
+access. Passing through a bespoke function defined in a message handler
+will add extra processing time and therefore latency to the message. All
+the customizations we have provided aim to minimise additional latency,
+but if a bespoke process is latency sensitive then some or all of the
+customizations could be switched off. We would argue though that
+generally it is better to switch on all the message handler functions
+which provide diagnostic information, as for most non-latency sensitive
+processes (HDBs, Gateways, some RDBs etc.) the extra information upon
+failure is worth the cost. The message handlers can be globally switched
+off by setting .proc.loadhandlers to 0b in the configuration file.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Script</th>
+<th align="center">NS</th>
+<th align="center">Diag</th>
+<th align="center">Function</th>
+<th align="center">Modifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">logusage.q</td>
+<td align="center">.usage</td>
+<td align="center">Y</td>
+<td align="center">Log all client interaction to an ascii log file and/or in-memory table. Messages can be logged before and after they are processed. Timer calls are also logged. Exclusion function list can be applied to .z.ps to disable logging of asynchronous real time updates</td>
+<td align="center">pw, po, pg, ps, pc, ws, ph, pp, pi, exit, timer</td>
+</tr>
+<tr>
+<td align="center">controlaccess.q</td>
+<td align="center">.access</td>
+<td align="center">N</td>
+<td align="center">Restrict access for set of users/user groups to a list of functions, and from a defined set of servers</td>
+<td align="center">pw, pg, ps, ws, ph, pp, pi</td>
+</tr>
+<tr>
+<td align="center">trackclients.q</td>
+<td align="center">.clients</td>
+<td align="center">Y</td>
+<td align="center">Track client process details including then number of requests and cumulative data size returned</td>
+<td align="center">po, pg, ps, ws, pc</td>
+</tr>
+<tr>
+<td align="center">trackservers.q</td>
+<td align="center">.servers</td>
+<td align="center">Y</td>
+<td align="center">Discover and track server processes including name, type and attribute information. This also contains the core of the code which can be used in conjunction with the discovery service.</td>
+<td align="center">pc, timer</td>
+</tr>
+<tr>
+<td align="center">zpsignore.q</td>
+<td align="center">.zpsignore</td>
+<td align="center">N</td>
+<td align="center">Override async message handler based on certain message patterns</td>
+<td align="center">ps</td>
+</tr>
+<tr>
+<td align="center">writeaccess.q</td>
+<td align="center">.readonly</td>
+<td align="center">N</td>
+<td align="center">Restrict client write access to prevent any modification to data in place. Also disables all HTTP access.</td>
+<td align="center">pg, ps, ws, ph, pp</td>
+</tr>
+</tbody>
+</table>
+<p>Each customization can be turned on or off individually from the
+configuration file(s). Each script can be extensively customised using
+the configuration file. Example customization for logusage.q, taken from
+\$KDBCONFIG/settings/default.q is below. Please see default.q for the
+remaining configuration of the other message handler files.</p>
+<pre><code>/- Configuration used by the usage functions - logging of client interaction
+\d .usage
+enabled:1b      /- whether the usage logging is enabled
+logtodisk:1b        /- whether to log to disk or not
+logtomemory:1b      /- write query logs to memory
+ignore:1b       /- check the ignore list for functions to ignore
+ignorelist:(`upd;"upd") /- the list of functions to ignore in async calls
+flushtime:1D00      /- default value for how long to persist the
+            /- in-memory logs. Set to 0D for no flushing
+suppressalias:0b    /- whether to suppress the log file alias creation
+logtimestamp:{[].z.d}   /- function to generate the log file timestamp suffix
+LEVEL:3         /- log level. 0=none;1=errors;2=errors+complete
+            /- queries;3=errors+before a query+after
+logroll:1b      /- Whether or not to roll the log file
+            /- automatically (on a daily schedule)
+</code></pre>
+<p><a name="logu"></a></p>
+<h2 id="logusageq">logusage.q</h2>
+<p>logusage.q is probably the most important of the scripts from a
+diagnostic perspective. It is a modified version of the logusage.q
+script on code.kx.</p>
+<p>In its most verbose mode it will log information to an in-memory table
+(.usage.usage) and an on-disk ASCII file, both before and after every
+client interaction and function executed on the timer. These choices
+were made because:</p>
+<ul>
+<li>
+<p>logging to memory enables easy interrogation of client interaction;</p>
+</li>
+<li>
+<p>logging to disk allows persistence if the process fails or locks up.
+      ASCII text files allow interrogation using OS tools such as vi, grep
+      or tail;</p>
+</li>
+<li>
+<p>logging before a query ensures any query that adversely effects the
+      process is definitely captured, as well as capturing some state
+      information before the query execution;</p>
+</li>
+<li>
+<p>logging after a query captures the time taken, result set size and
+      resulting state;</p>
+</li>
+<li>
+<p>logging timer calls ensures a full history of what the process is
+      actually doing. Also, timer call performance degradation over time
+      is a common source of problems in kdb+ systems.</p>
+</li>
+</ul>
+<p>The following fields are logged in .usage.usage:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">time</td>
+<td align="center">Time the row was added to the table</td>
+</tr>
+<tr>
+<td align="center">id</td>
+<td align="center">ID of the query. Normally before and complete rows will be consecutive but it might not be the case if the incoming call invokes further external communication</td>
+</tr>
+<tr>
+<td align="center">timer</td>
+<td align="center">Execution time. Null for rows with status=b (before)</td>
+</tr>
+<tr>
+<td align="center">zcmd</td>
+<td align="center">.z handler the query arrived through</td>
+</tr>
+<tr>
+<td align="center">status</td>
+<td align="center">Query status. One of b, c or e (before, complete, error)</td>
+</tr>
+<tr>
+<td align="center">a</td>
+<td align="center">Address of sender. .dotz.ipa can be used to convert from the integer format to a hostname</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td align="center">Username of sender</td>
+</tr>
+<tr>
+<td align="center">w</td>
+<td align="center">Handle of sender</td>
+</tr>
+<tr>
+<td align="center">cmd</td>
+<td align="center">Command sent</td>
+</tr>
+<tr>
+<td align="center">mem</td>
+<td align="center">Memory statistics</td>
+</tr>
+<tr>
+<td align="center">sz</td>
+<td align="center">Size of result. Null for rows with status of b or e</td>
+</tr>
+<tr>
+<td align="center">error</td>
+<td align="center">Error message</td>
+</tr>
+</tbody>
+</table>
+<p><a name="control"></a></p>
+<h2 id="controlaccessq">controlaccess.q</h2>
+<p>controlaccess.q is used to restrict client access to the process. It is
+modified version of controlaccess.q from code.kx. The script allows
+control of several aspects:</p>
+<ul>
+<li>
+<p>the host/ip address of the servers which are allowed to access the
+    process;</p>
+</li>
+<li>
+<p>definition of three user groups (default, poweruser and superuser)
+      and the actions each group is allowed to do;</p>
+</li>
+<li>
+<p>the group(s) each user is a member of, and any additional actions an
+      individual user is allowed/disallowed outside of the group
+      permissions;</p>
+</li>
+<li>
+<p>the maximum size of the result set returned to a client.</p>
+</li>
+</ul>
+<p>The access restrictions are loaded from csv files. The permissions files
+are stored in \$KDBCONFIG/permissions.</p>
+<table>
+<thead>
+<tr>
+<th align="center">File</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">*_hosts.csv</td>
+<td align="center">Contains hostname and ip address (patterns) for servers which are allowed or disallowed access. If a server is not found in the list, it is disallowed</td>
+</tr>
+<tr>
+<td align="center">*_users.csv</td>
+<td align="center">Contains individual users and the user groups they are are a member of</td>
+</tr>
+<tr>
+<td align="center">*_functions.csv</td>
+<td align="center">Contains individual functions and whether each user group is allowed to execute them. ; separated user list enables functions to be allowed by individual users</td>
+</tr>
+</tbody>
+</table>
+<p>The permissions files are loaded using a similar hierarchical approach
+as for the configuration and code loading. Three files can be provided-
+default_.csv, [proctype]_.csv, and [procname]_.csv. All of the
+files will be loaded, but permissions for the same entity (hostpattern,
+user, or function) defined in [procname]_.csv will override those in
+[proctype]_.csv which will in turn override [procname]_.csv.</p>
+<p>When a client makes a query which is refused by the permissioning layer,
+an error will be raised and logged in .usuage.usage if it is enabled.</p>
+<p><a name="track"></a></p>
+<h2 id="trackclientsq">trackclients.q</h2>
+<p>trackclients.q is used to track client interaction. It is a slightly
+modified version of trackclients.q from code.kx, and extends the
+functionality to handle interaction with the discovery service.</p>
+<p>Whenever a client opens a connection to the q process, it will be
+registered in the .clients.clients table. Various details are logged,
+but from a diagnostic perspective the most important information are the
+client details, the number of queries it has run, the last time it ran a
+query, the number of failed queries and the cumulative size of results
+returned to it.</p>
+<p><a name="tracks"></a></p>
+<h2 id="trackserversq">trackservers.q</h2>
+<p>trackservers.q is used to register and maintain handles to external
+servers. It is a heavily modified version of trackservers.q from
+code.kx. It is explained more in section connectionmanagement.</p>
+<p><a name="zps"></a></p>
+<h2 id="zpsignoreq">zpsignore.q</h2>
+<p>zpsignore.q is used to check incoming async calls for certain patterns
+and to bypass all further message handler checks for messages matching
+the pattern. This is useful for handling update messages published to a
+process from a data source.</p>
+<p><a name="write"></a></p>
+<h2 id="writeaccessq">writeaccess.q</h2>
+<p>writeaccess.q is used to restrict client write access to data within a
+process. The script uses the reval function, released in KDB+ 3.3, to
+prevent client queries from modifying any data in place. At present only
+queries in the form of strings are passed through the reval function.
+Additonally the script disables any form of HTTP access. If using
+versions of KDB+ prior to 3.3, this feature must be disabled. An attempt
+to use this feature on previous KDB+ versions will result in an error
+and the relevant process exiting.</p>
+<p><a name="dia"></a></p>
+<h2 id="diagnostic-reporting">Diagnostic Reporting</h2>
+<p>The message handler modifications provide a wealth of diagnostic
+information including:</p>
+<ul>
+<li>
+<p>the timings and memory usage for every query run on a process;</p>
+</li>
+<li>
+<p>failed queries;</p>
+</li>
+<li>
+<p>clients trying to do things they are not permissioned for;</p>
+</li>
+<li>
+<p>the clients which are querying often and/or regularly extracting
+      large datasets;</p>
+</li>
+<li>
+<p>the number of clients currently connected;</p>
+</li>
+<li>
+<p>timer calls and how long they take.</p>
+</li>
+</ul>
+<p>Although not currently implemented, it would be straightforward to use
+this information to implement reports on the behaviour of each process
+and the overall health of the system. Similarly it would be
+straightforward to set up periodic publication to a central repository
+to have a single point for system diagnostic statistics.</p>
+<p><a name="conn"></a></p>
+<h1 id="connection-management">Connection Management</h1>
+<p>trackservers.q is used to register and maintain handles to external
+servers. It is a heavily modified version of trackservers.q from
+code.kx. All the options are described in the default config file. All
+connections are tracked in the .servers.SERVERS table. When the handle
+is used the count and last query time are updated.</p>
+<pre><code>q).servers.SERVERS 
+procname     proctype  hpup                            w  hits startp                        lastp                         endp                          attributes                   
+---------------------------------------------------------------------------------
+discovery1   discovery :aquaq:9996    0                                  2014.01.08D11:13:10.583056000                               ()!()                        
+discovery2   discovery :aquaq:9995 6  0    2014.01.07D16:44:47.175757000 2014.01.07D16:44:47.174408000                               ()!()                        
+rdb_europe_1 rdb       :aquaq:9998 12 0    2014.01.07D16:46:47.897910000 2014.01.07D16:46:47.892901000 2014.01.07D16:46:44.626293000 `datacentre`country!`essex`uk
+rdb1         rdb       :aquaq:5011 7  0    2014.01.07D16:44:47.180684000 2014.01.07D16:44:47.176994000                               `datacentre`country!`essex`uk
+rdb_europe_1 hdb       :aquaq:9997    0                                  2014.01.08D11:13:10.757801000                               ()!()                        
+hdb1         hdb       :aquaq:9999    0                                  2014.01.08D11:13:10.757801000                               ()!()                        
+hdb2         hdb       :aquaq:5013 8  0    2014.01.07D16:44:47.180684000 2014.01.07D16:44:47.176994000                               `datacentre`country!`essex`uk
+hdb1         hdb       :aquaq:5012 9  0    2014.01.07D16:44:47.180684000 2014.01.07D16:44:47.176994000                               `datacentre`country!`essex`uk
+
+q)last .servers.SERVERS 
+procname  | `hdb2
+proctype  | `hdb
+hpup      | `:aquaq:5013
+w         | 8i
+hits      | 0i
+startp    | 2014.01.08D11:51:01.928045000
+lastp     | 2014.01.08D11:51:01.925078000
+endp      | 0Np
+attributes| `datacentre`country!`essex`uk
+</code></pre>
+<p><a name="Connect"></a></p>
+<h2 id="connections">Connections</h2>
+<p>Processes locate other processes based on their process type. The
+location is done either statically using the process.csv file or
+dynamically using a discovery service. It is recommended to use the
+discovery service as it allows the process to be notified as new
+processes become available.</p>
+<p>The main configuration variable is .servers.CONNECTIONS, which dictates
+which process type(s) to create connections to. .servers.startup[]
+must be called to initialise the connections. When connections are
+closed, the connection table is automatically updated. The process can
+be set to periodically retry connections.</p>
+<p><a name="Proc"></a></p>
+<h2 id="process-attributes">Process Attributes</h2>
+<p>Each process can report a set of attributes. When process A connects to
+process B, process A will try to retrieve the attributes of process B.
+The attributes are defined by the result of the .proc.getattributes
+function, which is by default an empty dictionary. Attributes are used
+to retrieve more detail about the capabilities of each process, rather
+than relying on the broad brush process type and process name
+categorization. Attributes can be used for intelligent query routing.
+Potential fields for attributes include:</p>
+<ul>
+<li>
+<p>range of data contained in the process;</p>
+</li>
+<li>
+<p>available tables;</p>
+</li>
+<li>
+<p>instrument universe;</p>
+</li>
+<li>
+<p>physical location;</p>
+</li>
+<li>
+<p>any other fields of relevance.</p>
+</li>
+</ul>
+<p><a name="pass"></a></p>
+<h2 id="connection-passwords">Connection Passwords</h2>
+<p>The password used by a process to connect to external processes is
+retrieved using the .servers.loadpassword function call. By default,
+this will read the password from a txt file contained in
+\$KDBCONFIG/passwords. A default password can be used, which is
+overridden by one for the process type, which is itself overridden by
+one for the process name. For greater security, the
+.servers.loadpassword function should be modified.</p>
+<p><a name="handle"></a></p>
+<h2 id="retrieving-and-using-handles">Retrieving and Using Handles</h2>
+<p>A function .servers.getservers is supplied to return a table of handle
+information. .servers.getservers takes five parameters:</p>
+<ul>
+<li>
+<p>type-or-name: whether the lookup is to be done by type or name (can
+    be either proctype or procname);</p>
+</li>
+<li>
+<p>types-or-names: the types or names to retrieve e.g. hdb;</p>
+</li>
+<li>
+<p>required-attributes: the dictionary of attributes to match on;</p>
+</li>
+<li>
+<p>open-dead-connections: whether to re-open dead connections;</p>
+</li>
+<li>
+<p>only-one: whether we only require one handle. So for example if 3
+      services of the supplied type are registered, and we have an open
+      handle to 1 of them, the open handle will be returned and the others
+      left closed irrespective of the open-dead-connections parameter.</p>
+</li>
+</ul>
+<p>.servers.getservers will compare the required parameters with the
+available parameters for each handle. The resulting table will have an
+extra column called attribmatch which can be used to determine how good
+a match the service is with the required attributes. attribmatch is a
+dictionary of (required attribute key) ! (Boolean full match;
+intersection of attributes).</p>
+<pre><code>q).servers.SERVERS 
+procname     proctype  hpup                            w hits startp                        lastp                         endp attributes                   
+---------------------------------------------------------------------------------
+discovery1   discovery :aquaq:9996   0                                  2014.01.08D11:51:01.922390000      ()!()                        
+discovery2   discovery :aquaq:9995 6 0    2014.01.08D11:51:01.923812000 2014.01.08D11:51:01.922390000      ()!()                        
+rdb_europe_1 rdb       :aquaq:9998   0                                  2014.01.08D11:51:38.347598000      ()!()                        
+rdb_europe_2 rdb       :aquaq:9997   0                                  2014.01.08D11:51:38.347598000      ()!()                        
+rdb1         rdb       :aquaq:5011 7 0    2014.01.08D11:51:01.928045000 2014.01.08D11:51:01.925078000      `datacentre`country!`essex`uk
+hdb3         hdb       :aquaq:5012 9 0    2014.01.08D11:51:38.349472000 2014.01.08D11:51:38.347598000      `datacentre`country!`essex`uk
+hdb2         hdb       :aquaq:5013 8 0    2014.01.08D11:51:01.928045000 2014.01.08D11:51:01.925078000      `datacentre`country!`essex`uk
+
+/- pull back hdbs.  Leave the attributes empty
+q).servers.getservers[`proctype;`hdb;()!();1b;f0b] 
+procname proctype lastp                         w hpup        attributes                    attribmatch
+-------------------------------------------------------------------------------
+hdb3     hdb      2014.01.08D11:51:38.347598000 9 :aquaq:5012 `datacentre`country!`essex`uk ()!()      
+hdb2     hdb      2014.01.08D11:51:01.925078000 8 :aquaq:5013 `datacentre`country!`essex`uk ()!()
+
+/- supply some attributes
+q).servers.getservers[`proctype;`hdb;(enlist`country)!enlist`uk;1b;0b] 
+procname proctype lastp                         w hpup        attributes                    attribmatch           
+-------------------------------------------------------------------------------
+hdb3     hdb      2014.01.08D11:51:38.347598000 9 :aquaq:5012 `datacentre`country!`essex`uk (,`country)!,(1b;,`uk)
+hdb2     hdb      2014.01.08D11:51:01.925078000 8 :aquaq:5013 `datacentre`country!`essex`uk (,`country)!,(1b;,`uk)
+q).servers.getservers[`proctype;`hdb;`country`datacentre!`uk`slough;1b;0b]                                                                                                                                                                                                    
+procname proctype lastp                         w hpup        attributes                    attribmatch                                    
+-------------------------------------------------------------------------------
+hdb3     hdb      2014.01.08D11:51:38.347598000 9 :aquaq:5012 `datacentre`country!`essex`uk `country`datacentre!((1b;,`uk);(0b;`symbol$()))
+hdb2     hdb      2014.01.08D11:51:01.925078000 8 :aquaq:5013 `datacentre`country!`essex`uk `country`datacentre!((1b;,`uk);(0b;`symbol$()))
+</code></pre>
+<p>.servers.getservers will try to automatically re-open connections if
+required.</p>
+<pre><code>q).servers.getservers[`proctype;`rdb;()!();1b;0b] 
+2014.01.08D12:01:06.023146000|aquaq|gateway1|INF|conn|attempting to open handle to :aquaq:9998
+2014.01.08D12:01:06.023581000|aquaq|gateway1|INF|conn|connection to :aquaq:9998 failed: hop: Connection refused
+2014.01.08D12:01:06.023597000|aquaq|gateway1|INF|conn|attempting to open handle to :aquaq:9997
+2014.01.08D12:01:06.023872000|aquaq|gateway1|INF|conn|connection to :aquaq:9997 failed: hop: Connection refused
+procname proctype lastp                         w hpup         attributes                    attribmatch
+-------------------------------------------------------------------------------
+rdb1     rdb      2014.01.08D11:51:01.925078000 7 :aquaq:5011 `datacentre`country!`essex`uk ()!()
+
+/- If we only require one connection, and we have one open,then it doesn't retry connections
+q).servers.getservers[`proctype;`rdb;()!();1b;1b] 
+procname proctype lastp                         w hpup        attributes                    attribmatch
+-------------------------------------------------------------------------------
+rdb1     rdb      2014.01.08D11:51:01.925078000 7 :aquaq:5011 `datacentre`country!`essex`uk ()!()
+</code></pre>
+<p>There are two other functions supplied for retrieving server details,
+both of which are based on .servers.getservers. .servers.gethandlebytype
+returns a single handle value, .servers.gethpupbytype returns a single
+host:port value. Both will re-open connections if there are not any
+valid connections. Both take two parameters:</p>
+<ul>
+<li>
+<p>types: the type to retrieve e.g. hdb;</p>
+</li>
+<li>
+<p>selection-algorithm: can be one of any, last or roundrobin.</p>
+</li>
+</ul>
+<p><a name="nontorq"></a></p>
+<h2 id="connecting-to-non-torq-processes">Connecting To Non-TorQ Processes</h2>
+<p>Connections to non-torq (external) processes can also be established.
+This is useful if you wish to integrate TorQ with an existing
+infrastructure. Any process can connect to external processes, or it can
+be managed by the discovery service only. Every external process should
+have a type and name in the same way as TorQ processes, to enable them
+to be located and used as required.</p>
+<p>Non-TorQ processes need to be listed by default in
+\$KDBCONFIG/settings/nontorqprocess.csv. This file has the same format
+as the standard process.csv file. The location of the non-TorQ process
+file can be adjusted using the .servers.NONTORQPROCESSFILE variable. To
+enable connections, set .servers.TRACKNONTORQPROCESS to 1b.</p>
+<p>Example of nontorqprocess.csv file:</p>
+<pre><code>host,port,proctype,procname
+aquaq,5533,hdb,extproc01
+aquaq,5577,hdb,extproc02
+</code></pre>
+<p><a name="man"></a></p>
+<h2 id="manually-adding-and-using-connections">Manually Adding And Using Connections</h2>
+<p>Connections can also be manually added and used. See .api.p“.servers.*”
+for details.</p>
+<p><a name="ipc"></a></p>
+<h2 id="ipc-types">IPC types</h2>
+<p>In version kdb+ v3.4, two new IPC connection types were added. These new
+types are unix domain sockets and SSL/TLS (tcps). The incoming
+connections to a proctype can be set by updating .servers.SOCKETTYPE.</p>
+<p>In the settings example below, everything that connects to the
+tickerplant will use unix domain sockets.</p>
+<pre><code>\d .servers 
+SOCKETTYPE:enlist[`tickerplant]!enlist `unix
+</code></pre>
+<p>Attempting to open a unix domain socket connection to a process which
+has an older kdb+ version will fail. We allow for processes to fallback
+to tcp if this happens by setting .servers.SOCKETFALLBACK to true. It
+will not fallback if the connection error message returned is one of the
+following : timeout, access. It will also not fallback for SSL/TLS
+(tcps) due to security concerns.</p>
+<p>At the time of writing, using unix domain sockets syntax on windows will
+appear to work whilst it’s actually falling back to tcp in the
+background. This can be misleading so we disabled using them on windows.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Processes/" class="btn btn-neutral float-right" title="Processes">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../utilities/" class="btn btn-neutral" title="Utilities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../utilities/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../Processes/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>
