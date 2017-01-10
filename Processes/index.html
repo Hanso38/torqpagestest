@@ -1119,11 +1119,11 @@ to use. These parameters can either be set in the config file or
 overridden on the command-line. If they are not set, the default
 parameters will be used. The parameters are as follows.</p>
 <p><strong>inputcsv</strong> - The name and location of the csv file which defines the
-behaviour of the process. The default is /KDBCONFIG/filealerter.csv.</p>
+behaviour of the process. The default is KDBCONFIG/filealerter.csv.</p>
 <p><strong>polltime</strong> - How often the process will scan for matching files. The
 default is 0D:00:01, i.e., every minute.</p>
 <p><strong>alreadyprocessed</strong> - The name and location of the already-processed
-table. The default is /KDBCONFIG/filealerterprocessed. This table will
+table. The default is KDBCONFIG/filealerterprocessed. This table will
 be created automatically the first time the process is ran.</p>
 <p><strong>skipallonstart</strong> - If this is set to 1, it will ignore all files
 already on the system; if it is set to 0, it will not. The default
@@ -1242,7 +1242,7 @@ inbuilt result handlers, with the ability to add custom result handlers.</p>
 </ul>
 <p>The reporter process has three parameters that are read in on
 initialisation from the reporter.q file found in the
-\$KDBCONFIG/settings directory. These settings are the string filepath
+$KDBCONFIG/settings directory. These settings are the string filepath
 of the input csv file, a boolean to output log messages and timestamp
 for flushing the query log table.</p>
 <p>To run the reporter process:</p>
@@ -1252,7 +1252,7 @@ for flushing the query log table.</p>
 scheduled and no further input is required from the user.</p>
 <h3 id="report-configuration">Report Configuration</h3>
 <p>By default, the process takes its inputs from a file called reporter.csv
-which is found in the \$KDBCONFIG directory. This allows the user
+which is found in the $KDBCONFIG directory. This allows the user
 complete control over the configuration of the reports. As the queries
 are evaluated on the target process, local variables can be referenced
 or foreign functions can be run. Table [table:reportertable] shows the
@@ -1363,7 +1363,7 @@ temporary file removed.</p>
 </code></pre>
 <p><strong>publishresult</strong> - Accepts 1 parameter and that is the data. This is
 discussed later in the subsection subresults.
-Custom result handlers can be added to \$KDBCODE/processes/reporter.q .
+Custom result handlers can be added to $KDBCODE/processes/reporter.q .
 It is important to note that the result handler is referencing local
 functions as it is executed in the reporter process and not the target
 process. When the query has been successful the result handler will be
@@ -1376,7 +1376,7 @@ stage column specifies what stage the query is in and these are shown in
 table [table:stagetable]. An appropriate log message is also shown so
 any problems can easily be diagnosed. The in memory table is flushed
 every interval depending on the value of the flushqueryloginterval
-variable in the reporter.q file found in the \$KDBCONFIG/settings
+variable in the reporter.q file found in the $KDBCONFIG/settings
 directory. An example of the query log table can be seen in listing
  [code:reporterquerylog].</p>
 <table>
