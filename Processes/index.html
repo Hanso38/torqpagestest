@@ -355,8 +355,8 @@
 <h1 id="processes">Processes</h1>
 <p>A set of processes is included. These processes build upon AquaQ TorQ,
 providing specific functionality. All the process scripts are contained
-in \$KDBCODE/processes. All processes should have an entry in
-\$KDBCONFIG/process.csv. All processes can have any type and name,
+in $KDBCODE/processes. All processes should have an entry in
+$KDBCONFIG/process.csv. All processes can have any type and name,
 except for discovery services which must have a process type of
 “discovery”. An example process.csv is:</p>
 <pre><code>aquaq$ cat config/process.csv
@@ -1117,38 +1117,38 @@ Additionally, the file alerter process can:</p>
 <p>The file alerter process has four parameters which should be set prior
 to use. These parameters can either be set in the config file or
 overridden on the command-line. If they are not set, the default
-parameters will be used. The parameters are as follows.\
-<strong>inputcsv</strong> - The name and location of the csv file which defines the
-behaviour of the process. The default is /KDBCONFIG/filealerter.csv.\
-<strong>polltime</strong> - How often the process will scan for matching files. The
-default is 0D:00:01, i.e., every minute.\
-<strong>alreadyprocessed</strong> - The name and location of the already-processed
+parameters will be used. The parameters are as follows.</p>
+<p><strong>inputcsv</strong> - The name and location of the csv file which defines the
+behaviour of the process. The default is /KDBCONFIG/filealerter.csv.</p>
+<p><strong>polltime</strong> - How often the process will scan for matching files. The
+default is 0D:00:01, i.e., every minute.</p>
+<p><strong>alreadyprocessed</strong> - The name and location of the already-processed
 table. The default is /KDBCONFIG/filealerterprocessed. This table will
-be created automatically the first time the process is ran.\
-<strong>skipallonstart</strong> - If this is set to [1]{}, it will ignore all files
-already on the system; if it is set to [0]{}, it will not. The default
-value is [0]{}.\
-The files to find and the functions to run are read in from a csv file
+be created automatically the first time the process is ran.</p>
+<p><strong>skipallonstart</strong> - If this is set to 1, it will ignore all files
+already on the system; if it is set to 0, it will not. The default
+value is 0.</p>
+<p>The files to find and the functions to run are read in from a csv file
 created by the user. This file has five columns, which are detailed
-below.\
-<strong>path</strong> - This is the path to the directory that will be scanned for
-the file.\
-<strong>match</strong> - This is a search string matching the name of the file to be
+below.</p>
+<p><strong>path</strong> - This is the path to the directory that will be scanned for
+the file.</p>
+<p><strong>match</strong> - This is a search string matching the name of the file to be
 found. Wildcards can be used in this search, for example, “file*” will
-find all files starting with “fil”.\
-<strong>function</strong> - This is the name of the function to be run on the file.
+find all files starting with “fil”.</p>
+<p><strong>function</strong> - This is the name of the function to be run on the file.
 This function must be defined in the script
 KDBCODE/processes/filealerter.q. If the function is not defined or fails
 to run, the process will throw an error and ignore that file from then
-on.\
-<strong>newonly</strong> - This is a boolean value. If it is set to [1]{}, it will
+on.</p>
+<p><strong>newonly</strong> - This is a boolean value. If it is set to 1, it will
 only run the function on the file if it has been newly created. If it is
-set to [0]{}, then it will run the function every time the file is
-modified.\
-<strong>movetodirectory</strong> - This is the path of the directory you would like
+set to 0, then it will run the function every time the file is
+modified.</p>
+<p><strong>movetodirectory</strong> - This is the path of the directory you would like
 to move the file to after it has been processed. If this value is left
-blank, the file will not be moved.\
-It is possible to run two separate functions on the same file by adding
+blank, the file will not be moved.</p>
+<p>It is possible to run two separate functions on the same file by adding
 them as separate lines in the csv file. If the file is to be moved after
 it is processed, the file alerter will run both functions on the file
 and then attempt to move it. A typical csv file to configure the file
@@ -1168,8 +1168,8 @@ path        match      function  newonly    movetodirectory
 files matching the search string specified in that line. Note that there
 may be more than one file found if a wildcard is used in the search
 string. If it finds any files, it will check that they are not in the
-already processed table. If newonly is set to [1]{}, it only checks if
-the filename is already in the table. If newonly is set to [0]{}, it
+already processed table. If newonly is set to 1, it only checks if
+the filename is already in the table. If newonly is set to 0, it
 checks against the filename, filesize and a md5 hash of the file. The
 md5 hash and the filesize are used to determine if the file has been
 modified since it was processed last. If the found files have not been
@@ -1190,13 +1190,13 @@ another directory could be:</p>
 <pre><code>copy:{[path;file] system "cp ", path,"/", file, " /path/to/newDir"}
 </code></pre>
 <p>Although the process is designed to run at regular intervals throughout
-the day, it can be called manually by invoking the [FArun[]]{} command
+the day, it can be called manually by invoking the FArun[] command
 from within the q session. Similarly, if new lines are added to the csv
-file, then it can be re-loaded by calling the [loadcsv[]]{} command
+file, then it can be re-loaded by calling the loadcsv[] command
 from the q session.</p>
 <p>Each stage of the process, along with any errors which may occur, are
-appropriately logged in the usual manner.\
-The file alerter process is designed to work on both Windows and Unix
+appropriately logged in the usual manner.</p>
+<p>The file alerter process is designed to work on both Windows and Unix
 based systems. Since many of the functions defined will use inbuilt
 system command they will be need to written to suit the operating system
 in use. It should also be noted that Windows does not have an inbuilt
