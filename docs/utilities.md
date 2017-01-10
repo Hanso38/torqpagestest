@@ -1,40 +1,3 @@
-{% include sidebar-left.html %}
-
-<div id="sidebarOverview">
-  <ul style="list-style-type: none;">
-   <li style="list-style-type: none;"><a href="#ut">Utilities</a></li>
-   <li style="list-style-type: none;"><a href="#api.q">api.q</a></li>
-   <li style="list-style-type: none;"><a href="#tim">timer.q</a></li>
-   <li style="list-style-type: none;"><a href="#async">async.q</a></li>
-   <li style="list-style-type: none;"><a href="#cache">cache.q</a></li>
-   <li style="list-style-type: none;"><a href="#email">email.q</a></li>
-   <li style="list-style-type: none;"><a href="#tz">timezone.q</a></li>
-   <li style="list-style-type: none;"><a href="#com">compress.q</a></li>
-<li style="list-style-type: none;"><a href="#data">dataloader.q</a></li>
-   <li style="list-style-type: none;"><a href="#sub">subscriptions.q</a></li>
-   <li style="list-style-type: none;"><a href="#ps">pubsub.q</a></li>
-   <li style="list-style-type: none;"><a href="#tp">tplogutils.q</a></li>
-   <li style="list-style-type: none;"><a href="#mon">monitoringchecks.q</a></li>
-<li style="list-style-type: none;"><a href="#hb">heartbeat.q</a></li>
-   <li style="list-style-type: none;"><a href="#wu">dbwriteutils.q</a></li>
-   <li style="list-style-type: none;"><a href="#help">help.q</a></li>
-   <li style="list-style-type: none;"><a href="#html">html.q</a></li>
-   <li style="list-style-type: none;"><a href="#addu">Additional Utilities</a></li>
-   <li style="list-style-type: none;"><a href="#api">Full API</a></li>
-   <li style="list-style-type: none;"><a href="#u.q">Modified u.q</a></li>
- </ul>
-</div>
-
-<style>
- div#sidebarOverview {
-        position: fixed;
-        right: 0;
-        font-size: small;
-        top: 30%;
-        list-style-type: none;
- }
-</style>
-
 
 <a name="ut"></a>
 
@@ -70,6 +33,8 @@ wildcard search of \*\[suppliedvalue\]\* is done. If a string is
 supplied, the value is used as is, meaning other non-wildcard regex
 pattern matching can be done.
 
+```no-highlight
+
     q).api.f`max                                                                                                                                                                                                                    
     name                | vartype   namespace public descrip             ..
     --------------------| -----------------------------------------------..
@@ -85,6 +50,8 @@ pattern matching can be done.
     ----| ------------------------------------------------
     maxs| function  .q        1      ""      ""     ""    
     max | primitive           1      ""      ""     ""    
+
+```
 
 .api.p is the same as .api.f, but only returns public functions. .api.u
 is as .api.p, but only includes user defined values i.e. it excludes q

@@ -1,27 +1,3 @@
-{% include sidebar-left.html %}
-
-<div id="sidebarOverview">
-  <ul style="list-style-type: none;">
-   <li style="list-style-type: none;"><a href="#vis">Visualisation</a></li>
-   <li style="list-style-type: none;"><a href="#ut">kdb+ Utilities</a></li>
-   <li style="list-style-type: none;"><a href="#java">JavaScript Utilities</a></li>
-   <li style="list-style-type: none;"><a href="#out">Outline</a></li>
-   <li style="list-style-type: none;"><a href="#eg">Example</a></li>
-   <li style="list-style-type: none;"><a href="#work">Further Work</a></li>
- </ul>
-</div>
-
-<style>
- div#sidebarOverview {
-        position: fixed;
-        right: 0;
-        font-size: small;
-        top: 30%;
-        list-style-type: none;
- }
-</style>
-
-<a name="vis"></a>
 
 Visualisation
 =============

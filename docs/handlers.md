@@ -1,38 +1,3 @@
-{% include sidebar-left.html %}
-
-<div id="sidebarOverview">
-  <ul style="list-style-type: none;">
-   <li style="list-style-type: none;"><a href="#hand">Message Handlers</a></li>
-   <li style="list-style-type: none;"><a href="#logu">logusage.q</a></li>
-   <li style="list-style-type: none;"><a href="#control">controlaccess.q</a></li>
-   <li style="list-style-type: none;"><a href="#track">trackclients.q</a></li>
-   <li style="list-style-type: none;"><a href="#tracks">trackservers.q</a></li>
-   <li style="list-style-type: none;"><a href="#zps">zpsignore.q</a></li>
-   <li style="list-style-type: none;"><a href="#write">writeaccess.q</a></li>
-   <li style="list-style-type: none;"><a href="#dia">Diagnostic Reporting</a></li>
-<li style="list-style-type: none;"><a href="#conn">Connection Management</a></li>
-   <li style="list-style-type: none;"><a href="#Connect">Connections</a></li>
-   <li style="list-style-type: none;"><a href="#Proc">Process Attributes</a></li>
-   <li style="list-style-type: none;"><a href="#pass">Connection Passwords</a></li>
-   <li style="list-style-type: none;"><a href="#handle">Retrieving and Using Handles</a></li>
-<li style="list-style-type: none;"><a href="#nontorq">Connecting to Non-TorQ Processes</a></li>
-   <li style="list-style-type: none;"><a href="#man">Manually Adding and Using Connections</a></li>
-<li style="list-style-type: none;"><a href="#ipc">IPC Types</a></li>
-
- </ul>
-</div>
-
-<style>
- div#sidebarOverview {
-        position: fixed;
-        right: 0;
-        top: 30%;
-        font-size: small;
-        list-style-type: none;
- }
-</style>
-
-<a name="hand"></a>
 
 Message Handlers
 ================

@@ -1,5 +1,3 @@
-{% include sidebar-left.html %}
-
 <img src="graphics/logo.png" width="300">
 
 email:
@@ -15,24 +13,4 @@ Copyright ©2013– AquaQ Analytics Limited
 May be used free of charge. Selling without prior written consent
 prohibited. Obtain permission before redistributing. In all cases this
 notice must remain intact.
-
-
-Contents
-================
-
-[Company Overview](CompanyOverview.md)
-
-[TorQ Overview](Overview.md)
-
-[Getting Started](gettingstarted.md)
-
-[Message Handlers](handlers.md)
-
-[Utilities](utilities.md)
-
-[Visualisation](visualisation.md)
-
-[Processes](Processes.md)
-
-[What Can We Do For You?](whatcanwedo.md)
 

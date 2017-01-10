@@ -1,34 +1,3 @@
-{% include sidebar-left.html %}
-
-<div id="sidebarOverview">
-  <ul style="list-style-type: none;">
-   <li style="list-style-type: none;"><a href="#Processes">Processes</a></li>
-   <li style="list-style-type: none;"><a href="#disc">Discovery Service</a></li>
-   <li style="list-style-type: none;"><a href="#gate">Gateway</a></li>
-   <li style="list-style-type: none;"><a href="#rdb">Real Time Database</a></li>
-   <li style="list-style-type: none;"><a href="#wdb">Write Database</a></li>
-   <li style="list-style-type: none;"><a href="#tick">Tickerplant Log Replay</a></li>
-   <li style="list-style-type: none;"><a href="#house">Housekeeping</a></li>
-   <li style="list-style-type: none;"><a href="#file">File Alerter</a></li>
-<li style="list-style-type: none;"><a href="#report">Reporter</a></li>
-   <li style="list-style-type: none;"><a href="#monitor">Monitor</a></li>
-   <li style="list-style-type: none;"><a href="#compress">Compression</a></li>
-   <li style="list-style-type: none;"><a href="#kill">Kill</a></li>
-   <li style="list-style-type: none;"><a href="#chained">Chained Tickerplant</a></li>
-<li style="list-style-type: none;"><a href="#kdb">Integration With kdb+ Tick</a></li>
- </ul>
-</div>
-
-<style>
- div#sidebarOverview {
-        position: fixed;
-        right: 0;
-        font-size: small;
-        top: 30%;
-        list-style-type: none;
- }
-</style>
-
 <a name="Processes"></a>
 
 Processes

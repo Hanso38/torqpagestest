@@ -1,28 +1,3 @@
-{% include sidebar-left.html %}
-
-<div id="sidebarOverview">
-  <ul style="list-style-type: none;">
-   <li style="list-style-type: none;"><a href="#start">Getting Started</a></li>
-   <li style="list-style-type: none;"><a href="#torq">Using torq.q</a></li>
-   <li style="list-style-type: none;"><a href="#env">Environment Variables</a></li>
-   <li style="list-style-type: none;"><a href="#procid">Process Identification</a></li>
-   <li style="list-style-type: none;"><a href="#logging">Logging</a></li>
-   <li style="list-style-type: none;"><a href="#config">Configuration Loading</a></li>
-   <li style="list-style-type: none;"><a href="#code">Code Loading</a></li>
-   <li style="list-style-type: none;"><a href="#init">Initialization Errors</a></li>
- </ul>
-</div>
-
-<style>
- div#sidebarOverview {
-        position: fixed;
-        right: 0;
-        top: 50%;
-        list-style-type: none;
- }
-</style>
-
-<a name="start"></a>
 
 Getting Started
 ===============

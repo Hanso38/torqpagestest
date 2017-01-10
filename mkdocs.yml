@@ -1,1 +1,10 @@
-site_name: My Docs
+site_name: TorQ
+pages:
+    - Home: index.md
+    - About: Overview.md
+    - GettingStarted: gettingstarted.md
+    - Utilities: utilities.md
+    - Handlers: handlers.md
+    - Processes: Processes.md 
+    - Visualisation: visualisation.md
+theme: readthedocs
