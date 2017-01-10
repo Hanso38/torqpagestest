@@ -617,7 +617,7 @@ q)\t h(`.gw.syncexec;(`f;2);`hdb`rdb)
 <p>If a query is done for a server type which is not registered, an error
 is returned:</p>
 <pre><code>q)\t h(`.gw.syncexec;(`f;2);`hdb`rdb`other)                                                                                                                                                                                                                                   
-'not all of the requested server types are available; missing other
+`not all of the requested server types are available; missing other
 </code></pre>
 <p>Custom join functions can be specified:</p>
 <pre><code>q)h(`.gw.syncexecj;(`f;2);`hdb`rdb;{sum{select count i by a from x} each x})                                                                                                                                                                                                  
@@ -633,7 +633,7 @@ a   | x
 </code></pre>
 <p>Custom joins can fail with appropriate errors:</p>
 <pre><code>q)h(`.gw.syncexecj;(`f;2);`hdb`rdb;{sum{select count i by b from x} each x})                                                                                                                                                                                                  
-'failed to apply supplied join function to results: b
+`failed to apply supplied join function to results: b
 </code></pre>
 <p>Asynchronous queries must be sent in async and blocked:</p>
 <pre><code>q)(neg h)(`.gw.asyncexec;(`f;2);`hdb`rdb); r:h(::)                                                                                                                                                                                                                          
@@ -1279,7 +1279,7 @@ meaning of the csv schema.</p>
 </tr>
 <tr>
 <td align="center">gateway</td>
-<td align="center">If non null the reporter will query processes route the query to the proctype specified in this field. The values in the proctype field will be the process types on which the gateway runs the backend query. e.g. ‘gateway</td>
+<td align="center">If non null the reporter will query processes route the query to the proctype specified in this field. The values in the proctype field will be the process types on which the gateway runs the backend query. e.g. `gateway</td>
 </tr>
 <tr>
 <td align="center">joinfunction</td>
@@ -1287,11 +1287,11 @@ meaning of the csv schema.</p>
 </tr>
 <tr>
 <td align="center">proctype</td>
-<td align="center">The type of process that the report will be run on. If the gateway field is not empty this may be a list of process types, otherwise the reporter will throw an error on startup. e.g. ‘rdb</td>
+<td align="center">The type of process that the report will be run on. If the gateway field is not empty this may be a list of process types, otherwise the reporter will throw an error on startup. e.g. `rdb</td>
 </tr>
 <tr>
 <td align="center">procname</td>
-<td align="center">The name of a specific process to run the report on. If left null, the reporter process will select a random process with the specified proctype. If the gateway field is not null, this field specifies the specific gateway process name to run the query against e.g. ‘hdb1</td>
+<td align="center">The name of a specific process to run the report on. If left null, the reporter process will select a random process with the specified proctype. If the gateway field is not null, this field specifies the specific gateway process name to run the query against e.g. `hdb1</td>
 </tr>
 <tr>
 <td align="center">start</td>

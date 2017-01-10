@@ -323,7 +323,7 @@
           
           <h1 id="message-handlers">Message Handlers</h1>
 <p>There is a separate code directory containing message handler
-customizations. This is found at \$KDBCODE/handlers. Much of the code is
+customizations. This is found at $KDBCODE/handlers. Much of the code is
 derived from Simon Garland’s contributions to
 <a href="http://code.kx.com/wiki/Contrib/UsingDotz">code.kx</a>.</p>
 <p>Every external interaction with a process goes through a message
@@ -396,7 +396,7 @@ off by setting .proc.loadhandlers to 0b in the configuration file.</p>
 <p>Each customization can be turned on or off individually from the
 configuration file(s). Each script can be extensively customised using
 the configuration file. Example customization for logusage.q, taken from
-\$KDBCONFIG/settings/default.q is below. Please see default.q for the
+$KDBCONFIG/settings/default.q is below. Please see default.q for the
 remaining configuration of the other message handler files.</p>
 <pre><code>/- Configuration used by the usage functions - logging of client interaction
 \d .usage
@@ -530,7 +530,7 @@ control of several aspects:</p>
 </li>
 </ul>
 <p>The access restrictions are loaded from csv files. The permissions files
-are stored in \$KDBCONFIG/permissions.</p>
+are stored in $KDBCONFIG/permissions.</p>
 <table>
 <thead>
 <tr>
@@ -697,7 +697,7 @@ Potential fields for attributes include:</p>
 <p>The password used by a process to connect to external processes is
 retrieved using the .servers.loadpassword function call. By default,
 this will read the password from a txt file contained in
-\$KDBCONFIG/passwords. A default password can be used, which is
+$KDBCONFIG/passwords. A default password can be used, which is
 overridden by one for the process type, which is itself overridden by
 one for the process name. For greater security, the
 .servers.loadpassword function should be modified.</p>
@@ -801,7 +801,7 @@ be managed by the discovery service only. Every external process should
 have a type and name in the same way as TorQ processes, to enable them
 to be located and used as required.</p>
 <p>Non-TorQ processes need to be listed by default in
-\$KDBCONFIG/settings/nontorqprocess.csv. This file has the same format
+$KDBCONFIG/settings/nontorqprocess.csv. This file has the same format
 as the standard process.csv file. The location of the non-TorQ process
 file can be adjusted using the .servers.NONTORQPROCESSFILE variable. To
 enable connections, set .servers.TRACKNONTORQPROCESS to 1b.</p>
