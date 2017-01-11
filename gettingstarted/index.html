@@ -520,7 +520,7 @@ number of ways:</p>
 <ol>
 <li>
 <p>From the process file in the default location of
-    $KDBCONFIG/process.csv;</p>
+    \$KDBCONFIG/process.csv;</p>
 </li>
 <li>
 <p>From the process file defined using the command line parameter
@@ -562,7 +562,7 @@ be used.</p>
 <h2 id="logging">Logging</h2>
 <p>By default, each process will redirect output to a standard out log and
 a standard error log, and create aliases for them. These will be rolled
-at midnight on a daily basis. They are all written to the $KDBLOGS
+at midnight on a daily basis. They are all written to the \$KDBLOGS
 directory. The log files created are:</p>
 <table>
 <thead>
@@ -597,7 +597,7 @@ example, change the suffixing to a full timestamp.</p>
 <h2 id="configuration-loading">Configuration Loading</h2>
 <h3 id="default-configuration-loading">Default Configuration Loading</h3>
 <p>Default process configuration is contained in q scripts, and stored in
-the $KDBCONFIG /settings directory. Each process tries to load all the
+the \$KDBCONFIG /settings directory. Each process tries to load all the
 configuration it can find and will attempt to load three configuration
 files in the below order:-</p>
 <ul>
@@ -618,9 +618,9 @@ other scripts can contain a subset of the configuration variables, which
 will override anything loaded previously.</p>
 <h3 id="application-configuration-loading">Application Configuration Loading</h3>
 <p>Application specific configuration can be stored in a user defined
-directory and made visible to TorQ by setting the $KDBAPPCONFIG
-environment variable. If $KDBAPPCONFIG is set, then TorQ will search
-the $KDBAPPCONFIG/settings directory and load all configuration it can
+directory and made visible to TorQ by setting the \$KDBAPPCONFIG
+environment variable. If \$KDBAPPCONFIG is set, then TorQ will search
+the \$KDBAPPCONFIG/settings directory and load all configuration it can
 find. Application configuration will be loaded after all default
 configuration in the following order:-</p>
 <ul>
@@ -644,19 +644,19 @@ directory.</p>
 <p>All configuration is loaded before code.</p>
 <p><a name="code"></a></p>
 <h2 id="code-loading">Code Loading</h2>
-<p>Code is loaded from the $KDBCODE directory. There is also a common
+<p>Code is loaded from the \$KDBCODE directory. There is also a common
 codebase, a codebase for each process type, and a code base for each
 process name, contained in the following directories and loaded in this
 order:</p>
 <ul>
 <li>
-<p>$KDBCODE/common: shared codebase loaded by all processes;</p>
+<p>\$KDBCODE/common: shared codebase loaded by all processes;</p>
 </li>
 <li>
-<p>$KDBCODE/[proctype]: code for a specific process type;</p>
+<p>\$KDBCODE/[proctype]: code for a specific process type;</p>
 </li>
 <li>
-<p>$KDBCODE/[procname]: code for a specific process name;</p>
+<p>\$KDBCODE/[procname]: code for a specific process name;</p>
 </li>
 </ul>
 <p>For any directory loaded, the load order can be specified by adding

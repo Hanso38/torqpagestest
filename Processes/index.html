@@ -364,8 +364,8 @@
 <h1 id="processes">Processes</h1>
 <p>A set of processes is included. These processes build upon AquaQ TorQ,
 providing specific functionality. All the process scripts are contained
-in $KDBCODE/processes. All processes should have an entry in
-$KDBCONFIG/process.csv. All processes can have any type and name,
+in \$KDBCODE/processes. All processes should have an entry in
+\$KDBCONFIG/process.csv. All processes can have any type and name,
 except for discovery services which must have a process type of
 “discovery”. An example process.csv is:</p>
 <pre><code>aquaq$ cat config/process.csv
@@ -626,7 +626,7 @@ q)\t h(`.gw.syncexec;(`f;2);`hdb`rdb)
 <p>If a query is done for a server type which is not registered, an error
 is returned:</p>
 <pre><code>q)\t h(`.gw.syncexec;(`f;2);`hdb`rdb`other)                                                                                                                                                                                                                                   
-`not all of the requested server types are available; missing other
+'not all of the requested server types are available; missing other
 </code></pre>
 <p>Custom join functions can be specified:</p>
 <pre><code>q)h(`.gw.syncexecj;(`f;2);`hdb`rdb;{sum{select count i by a from x} each x})                                                                                                                                                                                                  
@@ -642,7 +642,7 @@ a   | x
 </code></pre>
 <p>Custom joins can fail with appropriate errors:</p>
 <pre><code>q)h(`.gw.syncexecj;(`f;2);`hdb`rdb;{sum{select count i by b from x} each x})                                                                                                                                                                                                  
-`failed to apply supplied join function to results: b
+'failed to apply supplied join function to results: b
 </code></pre>
 <p>Asynchronous queries must be sent in async and blocked:</p>
 <pre><code>q)(neg h)(`.gw.asyncexec;(`f;2);`hdb`rdb); r:h(::)                                                                                                                                                                                                                          
@@ -725,12 +725,12 @@ seconds, but should be timed out after 5 seconds. There is a tolerance
 of +5 seconds on the timeout value, as that is how often the query list
 is checked. This can be reduced as required.</p>
 <pre><code>q)(neg h)(`.gw.asyncexecjpt;(`f;20);`hdb`rdb;raze;();0D00:00:05); r:h(::)
-
-q)q)q)r                                                                                                                                                                                                                                                                       
-"error: query has exceeded specified timeout value"
-q)\t (neg h)(`.gw.asyncexecjpt;(`f;20);`hdb`rdb;raze;();0D00:00:05); r:h(::)                                                                                                                                                                                                  
-6550
 </code></pre>
+<p>​                                                                                                                                                                                                                                                                                <br />
+    q)q)q)r                                                                                                                                                                                                                                                                     <br />
+    "error: query has exceeded specified timeout value"
+    q)\t (neg h)(<code>.gw.asyncexecjpt;(</code>f;20);<code>hdb</code>rdb;raze;();0D00:00:05); r:h(::)                                                                                                                                                                                                <br />
+    6550</p>
 <h3 id="non-kdb-clients">Non kdb+ Clients</h3>
 <p>All the examples in the previous section are from clients written in q.
 However it should be possible to do most of the above from non kdb+
@@ -1126,38 +1126,38 @@ Additionally, the file alerter process can:</p>
 <p>The file alerter process has four parameters which should be set prior
 to use. These parameters can either be set in the config file or
 overridden on the command-line. If they are not set, the default
-parameters will be used. The parameters are as follows.</p>
-<p><strong>inputcsv</strong> - The name and location of the csv file which defines the
-behaviour of the process. The default is KDBCONFIG/filealerter.csv.</p>
-<p><strong>polltime</strong> - How often the process will scan for matching files. The
-default is 0D:00:01, i.e., every minute.</p>
-<p><strong>alreadyprocessed</strong> - The name and location of the already-processed
-table. The default is KDBCONFIG/filealerterprocessed. This table will
-be created automatically the first time the process is ran.</p>
-<p><strong>skipallonstart</strong> - If this is set to 1, it will ignore all files
-already on the system; if it is set to 0, it will not. The default
-value is 0.</p>
-<p>The files to find and the functions to run are read in from a csv file
+parameters will be used. The parameters are as follows.\
+<strong>inputcsv</strong> - The name and location of the csv file which defines the
+behaviour of the process. The default is /KDBCONFIG/filealerter.csv.\
+<strong>polltime</strong> - How often the process will scan for matching files. The
+default is 0D:00:01, i.e., every minute.\
+<strong>alreadyprocessed</strong> - The name and location of the already-processed
+table. The default is /KDBCONFIG/filealerterprocessed. This table will
+be created automatically the first time the process is ran.\
+<strong>skipallonstart</strong> - If this is set to [1]{}, it will ignore all files
+already on the system; if it is set to [0]{}, it will not. The default
+value is [0]{}.\
+The files to find and the functions to run are read in from a csv file
 created by the user. This file has five columns, which are detailed
-below.</p>
-<p><strong>path</strong> - This is the path to the directory that will be scanned for
-the file.</p>
-<p><strong>match</strong> - This is a search string matching the name of the file to be
+below.\
+<strong>path</strong> - This is the path to the directory that will be scanned for
+the file.\
+<strong>match</strong> - This is a search string matching the name of the file to be
 found. Wildcards can be used in this search, for example, “file*” will
-find all files starting with “fil”.</p>
-<p><strong>function</strong> - This is the name of the function to be run on the file.
+find all files starting with “fil”.\
+<strong>function</strong> - This is the name of the function to be run on the file.
 This function must be defined in the script
 KDBCODE/processes/filealerter.q. If the function is not defined or fails
 to run, the process will throw an error and ignore that file from then
-on.</p>
-<p><strong>newonly</strong> - This is a boolean value. If it is set to 1, it will
+on.\
+<strong>newonly</strong> - This is a boolean value. If it is set to [1]{}, it will
 only run the function on the file if it has been newly created. If it is
-set to 0, then it will run the function every time the file is
-modified.</p>
-<p><strong>movetodirectory</strong> - This is the path of the directory you would like
+set to [0]{}, then it will run the function every time the file is
+modified.\
+<strong>movetodirectory</strong> - This is the path of the directory you would like
 to move the file to after it has been processed. If this value is left
-blank, the file will not be moved.</p>
-<p>It is possible to run two separate functions on the same file by adding
+blank, the file will not be moved.\
+It is possible to run two separate functions on the same file by adding
 them as separate lines in the csv file. If the file is to be moved after
 it is processed, the file alerter will run both functions on the file
 and then attempt to move it. A typical csv file to configure the file
@@ -1177,8 +1177,8 @@ path        match      function  newonly    movetodirectory
 files matching the search string specified in that line. Note that there
 may be more than one file found if a wildcard is used in the search
 string. If it finds any files, it will check that they are not in the
-already processed table. If newonly is set to 1, it only checks if
-the filename is already in the table. If newonly is set to 0, it
+already processed table. If newonly is set to [1]{}, it only checks if
+the filename is already in the table. If newonly is set to [0]{}, it
 checks against the filename, filesize and a md5 hash of the file. The
 md5 hash and the filesize are used to determine if the file has been
 modified since it was processed last. If the found files have not been
@@ -1199,13 +1199,13 @@ another directory could be:</p>
 <pre><code>copy:{[path;file] system "cp ", path,"/", file, " /path/to/newDir"}
 </code></pre>
 <p>Although the process is designed to run at regular intervals throughout
-the day, it can be called manually by invoking the FArun[] command
+the day, it can be called manually by invoking the [FArun[]]{} command
 from within the q session. Similarly, if new lines are added to the csv
-file, then it can be re-loaded by calling the loadcsv[] command
+file, then it can be re-loaded by calling the [loadcsv[]]{} command
 from the q session.</p>
 <p>Each stage of the process, along with any errors which may occur, are
-appropriately logged in the usual manner.</p>
-<p>The file alerter process is designed to work on both Windows and Unix
+appropriately logged in the usual manner.\
+The file alerter process is designed to work on both Windows and Unix
 based systems. Since many of the functions defined will use inbuilt
 system command they will be need to written to suit the operating system
 in use. It should also be noted that Windows does not have an inbuilt
@@ -1251,7 +1251,7 @@ inbuilt result handlers, with the ability to add custom result handlers.</p>
 </ul>
 <p>The reporter process has three parameters that are read in on
 initialisation from the reporter.q file found in the
-$KDBCONFIG/settings directory. These settings are the string filepath
+\$KDBCONFIG/settings directory. These settings are the string filepath
 of the input csv file, a boolean to output log messages and timestamp
 for flushing the query log table.</p>
 <p>To run the reporter process:</p>
@@ -1261,7 +1261,7 @@ for flushing the query log table.</p>
 scheduled and no further input is required from the user.</p>
 <h3 id="report-configuration">Report Configuration</h3>
 <p>By default, the process takes its inputs from a file called reporter.csv
-which is found in the $KDBCONFIG directory. This allows the user
+which is found in the \$KDBCONFIG directory. This allows the user
 complete control over the configuration of the reports. As the queries
 are evaluated on the target process, local variables can be referenced
 or foreign functions can be run. Table [table:reportertable] shows the
@@ -1288,7 +1288,7 @@ meaning of the csv schema.</p>
 </tr>
 <tr>
 <td align="center">gateway</td>
-<td align="center">If non null the reporter will query processes route the query to the proctype specified in this field. The values in the proctype field will be the process types on which the gateway runs the backend query. e.g. `gateway</td>
+<td align="center">If non null the reporter will query processes route the query to the proctype specified in this field. The values in the proctype field will be the process types on which the gateway runs the backend query. e.g. ‘gateway</td>
 </tr>
 <tr>
 <td align="center">joinfunction</td>
@@ -1296,11 +1296,11 @@ meaning of the csv schema.</p>
 </tr>
 <tr>
 <td align="center">proctype</td>
-<td align="center">The type of process that the report will be run on. If the gateway field is not empty this may be a list of process types, otherwise the reporter will throw an error on startup. e.g. `rdb</td>
+<td align="center">The type of process that the report will be run on. If the gateway field is not empty this may be a list of process types, otherwise the reporter will throw an error on startup. e.g. ‘rdb</td>
 </tr>
 <tr>
 <td align="center">procname</td>
-<td align="center">The name of a specific process to run the report on. If left null, the reporter process will select a random process with the specified proctype. If the gateway field is not null, this field specifies the specific gateway process name to run the query against e.g. `hdb1</td>
+<td align="center">The name of a specific process to run the report on. If left null, the reporter process will select a random process with the specified proctype. If the gateway field is not null, this field specifies the specific gateway process name to run the query against e.g. ‘hdb1</td>
 </tr>
 <tr>
 <td align="center">start</td>
@@ -1346,7 +1346,8 @@ result handlers can be defined as required. The result handler will be
 invoked with a single parameter (the result of the query).</p>
 <p><strong>writetofiletype</strong> - Accepts 3 parameters: path, filename, filetype and
 data. When writing to file it uses a date time suffix so the resultant
-filename will be <code>usage_rdb_2014_01_02_15_00_12.txt</code> e.g.</p>
+filename will be\
+<code>usage_rdb_2014_01_02_15_00_12.txt</code> e.g.</p>
 <pre><code>writetofiletype["./output/";"usage";"csv"]
 </code></pre>
 <p><strong>splaytable</strong> - This accepts 3 parameters: path, file and data. This
@@ -1371,7 +1372,7 @@ temporary file removed.</p>
 </code></pre>
 <p><strong>publishresult</strong> - Accepts 1 parameter and that is the data. This is
 discussed later in the subsection subresults.
-Custom result handlers can be added to $KDBCODE/processes/reporter.q .
+Custom result handlers can be added to \$KDBCODE/processes/reporter.q .
 It is important to note that the result handler is referencing local
 functions as it is executed in the reporter process and not the target
 process. When the query has been successful the result handler will be
@@ -1384,8 +1385,9 @@ stage column specifies what stage the query is in and these are shown in
 table [table:stagetable]. An appropriate log message is also shown so
 any problems can easily be diagnosed. The in memory table is flushed
 every interval depending on the value of the flushqueryloginterval
-variable in the reporter.q file found in the $KDBCONFIG/settings
-directory. </p>
+variable in the reporter.q file found in the \$KDBCONFIG/settings
+directory. An example of the query log table can be seen in listing
+ [code:reporterquerylog].</p>
 <table>
 <thead>
 <tr>
@@ -1416,6 +1418,7 @@ directory. </p>
 </tr>
 </tbody>
 </table>
+<p>: Query Stage explaination[]{data-label="table:stagetable"}</p>
 <pre><code>time                         | queryid stage message
 -----------------------------| ------------------------------------------------------------------------
 2014.10.20D22:20:06.597035000| 37 R "Received result"
@@ -1521,7 +1524,8 @@ monitor process in the kdb+ side. The features of the front end include:</p>
       and desktop</p>
 </li>
 </ul>
-<p>It is accessible by going to the url <code>http://HOST:PORT/.non?monitorui</code></p>
+<p>It is accessible by going to the url <code>http://HOST:PORT/.non?monitorui</code>\
+A screenshot of the front end can be seen in fig [fig:html5frontend].</p>
 <p><a name="compress"></a></p>
 <h2 id="compression">Compression</h2>
 <p>The compression process is a thin wrapper around the compression utility
@@ -1613,7 +1617,7 @@ and are under the <code>.ctp</code> namespace.</p>
 <tr>
 <td>tickerplantname</td>
 <td>list of tickerplant names to try and make a connection to</td>
-<td><code>`tickerplant1</code></td>
+<td><code>‘tickerplant1</code></td>
 </tr>
 <tr>
 <td>pubinterval</td>
@@ -1633,17 +1637,17 @@ and are under the <code>.ctp</code> namespace.</p>
 <tr>
 <td>logdir</td>
 <td>directory containing chained tickerplant logs</td>
-<td><code>`:hdb</code></td>
+<td><code>‘:hdb</code></td>
 </tr>
 <tr>
 <td>subscribeto</td>
 <td>subscribe to these tables only (null for all)</td>
-<td><code>`</code></td>
+<td><code>‘</code></td>
 </tr>
 <tr>
 <td>subscribesyms</td>
 <td>subscribe to these syms only (null for all)</td>
-<td><code>`</code></td>
+<td><code>‘</code></td>
 </tr>
 <tr>
 <td>replay</td>
