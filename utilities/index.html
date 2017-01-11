@@ -844,7 +844,7 @@ and <a href="http://curl.haxx.se/docs/caextract.html">here</a></p>
 <h2 id="timezoneq">timezone.q</h2>
 <p>A slightly customised version of the timezone conversion functionality
 from code.kx. It loads a table of timezone information from
-\$KDBCONFIG. See .api.p.tz.*for more details.</p>
+$KDBCONFIG. See .api.p.tz.*for more details.</p>
 <p><a name="com"></a></p>
 <h2 id="compressq">compress.q</h2>
 <p>compress.q applies compression to any kdb+ database, handles all
@@ -1137,7 +1137,7 @@ databases.</p>
 globally defined. This helps to manage the code base when the data can
 potentially be written from multiple locations (e.g. written from the
 RDB, loaded from flat file, replayed from the tickerplant log). The
-configuration is defined in a csv which defaults to \$KDBCONFG/sort.csv.
+configuration is defined in a csv which defaults to $KDBCONFG/sort.csv.
 The default setup is that every table is sorted by sym and time, with a
 p attribute on sym (this is the standard kdb+ tick configuration).</p>
 <pre><code>aquaq$ tail config/sort.csv 
