@@ -1,4 +1,5 @@
 site_name: TorQ
+site_favicon: img/favicon.ico
 pages:
     - Home: index.md
     - About: Overview.md
@@ -8,7 +9,7 @@ pages:
     - Connection Management: conn.md
     - Processes: Processes.md 
     - Visualisation: visualisation.md
-copyright: 'Copyright (c) 2016 AquaQ Analytics Limited.  Kx(r) and kdb+ are registered trademarks of Kx Systems Inc.'
+copyright: 'Copyright &copy 2016 AquaQ Analytics Limited.  Kx &reg and kdb+ are registered trademarks of Kx Systems Inc.'
 
 theme: 'material'
 repo_name: 'GitHub'
