@@ -725,12 +725,12 @@ seconds, but should be timed out after 5 seconds. There is a tolerance
 of +5 seconds on the timeout value, as that is how often the query list
 is checked. This can be reduced as required.</p>
 <pre><code>q)(neg h)(`.gw.asyncexecjpt;(`f;20);`hdb`rdb;raze;();0D00:00:05); r:h(::)
+
+q)q)q)r                                                                                                                                                                                                                                                                       
+"error: query has exceeded specified timeout value"
+q)\t (neg h)(`.gw.asyncexecjpt;(`f;20);`hdb`rdb;raze;();0D00:00:05); r:h(::)                                                                                                                                                                                                  
+6550
 </code></pre>
-<p>​                                                                                                                                                                                                                                                                                <br />
-    q)q)q)r                                                                                                                                                                                                                                                                     <br />
-    "error: query has exceeded specified timeout value"
-    q)\t (neg h)(<code>.gw.asyncexecjpt;(</code>f;20);<code>hdb</code>rdb;raze;();0D00:00:05); r:h(::)                                                                                                                                                                                                <br />
-    6550</p>
 <h3 id="non-kdb-clients">Non kdb+ Clients</h3>
 <p>All the examples in the previous section are from clients written in q.
 However it should be possible to do most of the above from non kdb+
@@ -1346,8 +1346,7 @@ result handlers can be defined as required. The result handler will be
 invoked with a single parameter (the result of the query).</p>
 <p><strong>writetofiletype</strong> - Accepts 3 parameters: path, filename, filetype and
 data. When writing to file it uses a date time suffix so the resultant
-filename will be\
-<code>usage_rdb_2014_01_02_15_00_12.txt</code> e.g.</p>
+filename will be <code>usage_rdb_2014_01_02_15_00_12.txt</code> e.g.</p>
 <pre><code>writetofiletype["./output/";"usage";"csv"]
 </code></pre>
 <p><strong>splaytable</strong> - This accepts 3 parameters: path, file and data. This
@@ -1386,8 +1385,7 @@ table [table:stagetable]. An appropriate log message is also shown so
 any problems can easily be diagnosed. The in memory table is flushed
 every interval depending on the value of the flushqueryloginterval
 variable in the reporter.q file found in the $KDBCONFIG/settings
-directory. An example of the query log table can be seen in listing
- [code:reporterquerylog].</p>
+directory. </p>
 <table>
 <thead>
 <tr>
@@ -1418,7 +1416,6 @@ directory. An example of the query log table can be seen in listing
 </tr>
 </tbody>
 </table>
-<p>: Query Stage explaination[]{data-label="table:stagetable"}</p>
 <pre><code>time                         | queryid stage message
 -----------------------------| ------------------------------------------------------------------------
 2014.10.20D22:20:06.597035000| 37 R "Received result"
@@ -1524,8 +1521,7 @@ monitor process in the kdb+ side. The features of the front end include:</p>
       and desktop</p>
 </li>
 </ul>
-<p>It is accessible by going to the url <code>http://HOST:PORT/.non?monitorui</code>\
-A screenshot of the front end can be seen in fig [fig:html5frontend].</p>
+<p>It is accessible by going to the url <code>http://HOST:PORT/.non?monitorui</code></p>
 <p><a name="compress"></a></p>
 <h2 id="compression">Compression</h2>
 <p>The compression process is a thin wrapper around the compression utility

@@ -864,7 +864,7 @@ the same way, after defining a systemuser role (or expanding the default
 role in TorQ). The superuser is given global function access by
 assigning them .pm.ALL in the function table, for example a tickerplant
 pushing to the RDB would need to have a user and role defined:</p>
-<pre><code>.pm.adduser[`ticker;`local;`md5;md5``plant'']
+<pre><code>.pm.adduser[`ticker;`local;`md5;md5"plant"]
 .pm.assignrole[`ticker;`tp]
 </code></pre>
 <p>And then grant that role access to the .u.upd function:</p>
