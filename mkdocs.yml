@@ -2,9 +2,22 @@ site_name: TorQ
 pages:
     - Home: index.md
     - About: Overview.md
-    - GettingStarted: gettingstarted.md
+    - Getting Started: gettingstarted.md
     - Utilities: utilities.md
     - Handlers: handlers.md
+    - Connection Management: conn.md
     - Processes: Processes.md 
     - Visualisation: visualisation.md
-theme: readthedocs
+copyright: 'Copyright (c) 2016 AquaQ Analytics Limited.  Kx(r) and kdb+ are registered trademarks of Kx Systems Inc.'
+
+theme: 'material'
+repo_name: 'GitHub'
+repo_url: 'https://github.com/AquaQAnalytics/TorQ'
+extra:
+   logo: 'graphics/TorQ-logo.png' 
+   palette:
+      primary: 'indigo'
+      accent: 'teal'
+   author:
+      github: 'AquaQAnalytics'
+      twitter: 'AquaQAnalytics'
