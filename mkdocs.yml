@@ -1,5 +1,5 @@
 site_name: TorQ
-site_favicon: img/favicon.ico
+site_favicon: graphics/favicon.ico
 pages:
     - Home: index.md
     - About: Overview.md
