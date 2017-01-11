@@ -43,6 +43,14 @@
 
     
     <url>
+     <loc>/conn/</loc>
+     <lastmod>2017-01-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>/Processes/</loc>
      <lastmod>2017-01-11</lastmod>
      <changefreq>daily</changefreq>
