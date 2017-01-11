@@ -3,8 +3,8 @@ Overview
 
 <a name="what?"></a>
 
-What is kdb+
-------------
+What is kdb+?
+-------------
 
 kdb+ is the market leading timeseries database from Kx Systems. kdb+
 is used predominently in the Financial Services sector to capture,

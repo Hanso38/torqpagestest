@@ -5,8 +5,8 @@ Processes
 
 A set of processes is included. These processes build upon AquaQ TorQ,
 providing specific functionality. All the process scripts are contained
-in \$KDBCODE/processes. All processes should have an entry in
-\$KDBCONFIG/process.csv. All processes can have any type and name,
+in $KDBCODE/processes. All processes should have an entry in
+$KDBCONFIG/process.csv. All processes can have any type and name,
 except for discovery services which must have a process type of
 “discovery”. An example process.csv is:
 
@@ -268,7 +268,7 @@ If a query is done for a server type which is not registered, an error
 is returned:
 
     q)\t h(`.gw.syncexec;(`f;2);`hdb`rdb`other)                                                                                                                                                                                                                                   
-    'not all of the requested server types are available; missing other
+    `not all of the requested server types are available; missing other
 
 Custom join functions can be specified:
 
@@ -286,7 +286,7 @@ Custom join functions can be specified:
 Custom joins can fail with appropriate errors:
 
     q)h(`.gw.syncexecj;(`f;2);`hdb`rdb;{sum{select count i by b from x} each x})                                                                                                                                                                                                  
-    'failed to apply supplied join function to results: b
+    `failed to apply supplied join function to results: b
 
 Asynchronous queries must be sent in async and blocked:
 
@@ -373,8 +373,7 @@ of +5 seconds on the timeout value, as that is how often the query list
 is checked. This can be reduced as required.
 
     q)(neg h)(`.gw.asyncexecjpt;(`f;20);`hdb`rdb;raze;();0D00:00:05); r:h(::)                                                                                                                                                                                                     
-
-​                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                          
     q)q)q)r                                                                                                                                                                                                                                                                       
     "error: query has exceeded specified timeout value"
     q)\t (neg h)(`.gw.asyncexecjpt;(`f;20);`hdb`rdb;raze;();0D00:00:05); r:h(::)                                                                                                                                                                                                  
@@ -751,37 +750,48 @@ Additionally, the file alerter process can:
 The file alerter process has four parameters which should be set prior
 to use. These parameters can either be set in the config file or
 overridden on the command-line. If they are not set, the default
-parameters will be used. The parameters are as follows.\
+parameters will be used. The parameters are as follows.
+
 **inputcsv** - The name and location of the csv file which defines the
-behaviour of the process. The default is /KDBCONFIG/filealerter.csv.\
+behaviour of the process. The default is KDBCONFIG/filealerter.csv.
+
 **polltime** - How often the process will scan for matching files. The
-default is 0D:00:01, i.e., every minute.\
+default is 0D:00:01, i.e., every minute.
+
 **alreadyprocessed** - The name and location of the already-processed
-table. The default is /KDBCONFIG/filealerterprocessed. This table will
-be created automatically the first time the process is ran.\
-**skipallonstart** - If this is set to [1]{}, it will ignore all files
-already on the system; if it is set to [0]{}, it will not. The default
-value is [0]{}.\
+table. The default is KDBCONFIG/filealerterprocessed. This table will
+be created automatically the first time the process is ran.
+
+**skipallonstart** - If this is set to 1, it will ignore all files
+already on the system; if it is set to 0, it will not. The default
+value is 0.
+
 The files to find and the functions to run are read in from a csv file
 created by the user. This file has five columns, which are detailed
-below.\
+below.
+
 **path** - This is the path to the directory that will be scanned for
-the file.\
+the file.
+
 **match** - This is a search string matching the name of the file to be
 found. Wildcards can be used in this search, for example, “file\*” will
-find all files starting with “fil”.\
+find all files starting with “fil”.
+
 **function** - This is the name of the function to be run on the file.
 This function must be defined in the script
 KDBCODE/processes/filealerter.q. If the function is not defined or fails
 to run, the process will throw an error and ignore that file from then
-on.\
-**newonly** - This is a boolean value. If it is set to [1]{}, it will
+on.
+
+**newonly** - This is a boolean value. If it is set to 1, it will
 only run the function on the file if it has been newly created. If it is
-set to [0]{}, then it will run the function every time the file is
-modified.\
+set to 0, then it will run the function every time the file is
+modified.
+
 **movetodirectory** - This is the path of the directory you would like
 to move the file to after it has been processed. If this value is left
-blank, the file will not be moved.\
+blank, the file will not be moved.
+
 It is possible to run two separate functions on the same file by adding
 them as separate lines in the csv file. If the file is to be moved after
 it is processed, the file alerter will run both functions on the file
@@ -803,8 +813,8 @@ The file alerter process reads in each line of the csv file and searches
 files matching the search string specified in that line. Note that there
 may be more than one file found if a wildcard is used in the search
 string. If it finds any files, it will check that they are not in the
-already processed table. If newonly is set to [1]{}, it only checks if
-the filename is already in the table. If newonly is set to [0]{}, it
+already processed table. If newonly is set to 1, it only checks if
+the filename is already in the table. If newonly is set to 0, it
 checks against the filename, filesize and a md5 hash of the file. The
 md5 hash and the filesize are used to determine if the file has been
 modified since it was processed last. If the found files have not been
@@ -828,13 +838,14 @@ another directory could be:
     copy:{[path;file] system "cp ", path,"/", file, " /path/to/newDir"}
 
 Although the process is designed to run at regular intervals throughout
-the day, it can be called manually by invoking the [FArun\[\]]{} command
+the day, it can be called manually by invoking the FArun\[\] command
 from within the q session. Similarly, if new lines are added to the csv
-file, then it can be re-loaded by calling the [loadcsv\[\]]{} command
+file, then it can be re-loaded by calling the loadcsv\[\] command
 from the q session.
 
 Each stage of the process, along with any errors which may occur, are
-appropriately logged in the usual manner.\
+appropriately logged in the usual manner.
+
 The file alerter process is designed to work on both Windows and Unix
 based systems. Since many of the functions defined will use inbuilt
 system command they will be need to written to suit the operating system
@@ -879,7 +890,7 @@ Features:
 
 The reporter process has three parameters that are read in on
 initialisation from the reporter.q file found in the
-\$KDBCONFIG/settings directory. These settings are the string filepath
+$KDBCONFIG/settings directory. These settings are the string filepath
 of the input csv file, a boolean to output log messages and timestamp
 for flushing the query log table.
 
@@ -893,7 +904,7 @@ scheduled and no further input is required from the user.
 ### Report Configuration
 
 By default, the process takes its inputs from a file called reporter.csv
-which is found in the \$KDBCONFIG directory. This allows the user
+which is found in the $KDBCONFIG directory. This allows the user
 complete control over the configuration of the reports. As the queries
 are evaluated on the target process, local variables can be referenced
 or foreign functions can be run. Table \[table:reportertable\] shows the
@@ -904,10 +915,10 @@ meaning of the csv schema.
 |      name       |          Report name e.g. Usage          |
 |      query      | Query to be evaluated on that process. It can be a string query or function |
 |  resulthandler  | Result handlers are run on the returned result. Custom result handlers can be added. The result handler must be a monadic function with the result data being passed in e.g. writetofile[“./output”;“usage”] |
-|     gateway     | If non null the reporter will query processes route the query to the proctype specified in this field. The values in the proctype field will be the process types on which the gateway runs the backend query. e.g. ‘gateway |
+|     gateway     | If non null the reporter will query processes route the query to the proctype specified in this field. The values in the proctype field will be the process types on which the gateway runs the backend query. e.g. \`gateway |
 |  joinfunction   | Used to join the results when a gateway query is being used. The choice of joinfunction must take into account the result that will be received. The function must be monadic and the parameter will be the list of results returned from the backend processes e.g. raze |
-|    proctype     | The type of process that the report will be run on. If the gateway field is not empty this may be a list of process types, otherwise the reporter will throw an error on startup. e.g. ‘rdb |
-|    procname     | The name of a specific process to run the report on. If left null, the reporter process will select a random process with the specified proctype. If the gateway field is not null, this field specifies the specific gateway process name to run the query against e.g. ‘hdb1 |
+|    proctype     | The type of process that the report will be run on. If the gateway field is not empty this may be a list of process types, otherwise the reporter will throw an error on startup. e.g. \`rdb |
+|    procname     | The name of a specific process to run the report on. If left null, the reporter process will select a random process with the specified proctype. If the gateway field is not null, this field specifies the specific gateway process name to run the query against e.g. \`hdb1 |
 |      start      | Time on that day to start at e.g. 12:00  |
 |       end       | Time on that day that the report will stop at e.g. 23:00 |
 |     period      | The period between each report query e.g. 00:00:10 |
@@ -943,8 +954,7 @@ invoked with a single parameter (the result of the query).
 
 **writetofiletype** - Accepts 3 parameters: path, filename, filetype and
 data. When writing to file it uses a date time suffix so the resultant
-filename will be\
-`usage_rdb_2014_01_02_15_00_12.txt` e.g.
+filename will be `usage_rdb_2014_01_02_15_00_12.txt` e.g.
 
     writetofiletype["./output/";"usage";"csv"]
 
@@ -973,7 +983,7 @@ temporary file removed.
 
 **publishresult** - Accepts 1 parameter and that is the data. This is
 discussed later in the subsection subresults.
-Custom result handlers can be added to \$KDBCODE/processes/reporter.q .
+Custom result handlers can be added to $KDBCODE/processes/reporter.q .
 It is important to note that the result handler is referencing local
 functions as it is executed in the reporter process and not the target
 process. When the query has been successful the result handler will be
@@ -988,9 +998,8 @@ stage column specifies what stage the query is in and these are shown in
 table \[table:stagetable\]. An appropriate log message is also shown so
 any problems can easily be diagnosed. The in memory table is flushed
 every interval depending on the value of the flushqueryloginterval
-variable in the reporter.q file found in the \$KDBCONFIG/settings
-directory. An example of the query log table can be seen in listing
- \[code:reporterquerylog\].
+variable in the reporter.q file found in the $KDBCONFIG/settings
+directory. 
 
 | Stage symbol | Explanation                              |
 | ------------ | ---------------------------------------- |
@@ -1000,7 +1009,6 @@ directory. An example of the query log table can be seen in listing
 | T            | The query has exceeded the timeout interval |
 | S            | System message e.g. “Reporter Process Initialised” |
 
-  : Query Stage explaination[]{data-label="table:stagetable"}
 
     time                         | queryid stage message
     -----------------------------| ------------------------------------------------------------------------
@@ -1113,8 +1121,7 @@ monitor process in the kdb+ side. The features of the front end include:
 -   Responsive design so works on all main devices i.e. phones, tablets
       and desktop
 
-It is accessible by going to the url `http://HOST:PORT/.non?monitorui`\
-A screenshot of the front end can be seen in fig \[fig:html5frontend\].
+It is accessible by going to the url `http://HOST:PORT/.non?monitorui`
 
 <a name="compress"></a>
 
@@ -1205,13 +1212,13 @@ and are under the `.ctp` namespace.
 
   |Setting|                  Explanation |               Default|
   |------------------------ |------------------------------------------------------------------------------------------------------ |-----------------|
-  |tickerplantname       |   list of tickerplant names to try and make a connection to    |                                          `‘tickerplant1`|
+  |tickerplantname       |   list of tickerplant names to try and make a connection to    |                                          <code>`tickerplant1</code>|
  | pubinterval          |   publish batch updates at this interval. If the value is 0D00:00:00 then it will publish tick by tick |  `0D00:00:00`|
   |tpconnsleep          |    number of seconds between attempts to connect to the source tickerplant  |                              `10`|
   |createlogfile       |     create a log file             |                                                                         `0b`|
-  |logdir              |     directory containing chained tickerplant logs  |                                                        `‘:hdb`|
- |subscribeto          |    subscribe to these tables only (null for all)    |                                                      `‘`|
- | subscribesyms       |     subscribe to these syms only (null for all)  |                                                          `‘`|
+  |logdir              |     directory containing chained tickerplant logs  |                                                        <code>`:hdb</code>|
+ |subscribeto          |    subscribe to these tables only (null for all)    |                                                      <code>`</code>|
+ | subscribesyms       |     subscribe to these syms only (null for all)  |                                                          <code>`</code>|
   |replay               |    replay the tickerplant log file          |                                                              `0b`|
  | schema               |    retrieve schema from tickerplant    |                                                                   `1b`|
  | clearlogonsubscription  | clear log on subscription, only called if createlogfile is also enabled  |                              `0b`|

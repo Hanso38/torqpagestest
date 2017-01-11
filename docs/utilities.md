@@ -94,7 +94,7 @@ given its definition. This can be useful in debugging.
     40
     q)f[`a]                                                                                                                                                                                                                                                                       
     {x+y}
-    'type
+    `type
     +
     `a
     10
@@ -333,8 +333,9 @@ integer of the email length on success, or -1 on failure.
 |  subject  |  Y   |     char list      |              email subject               |
 |   body    |  Y   | list of char lists |                email body                |
 |    cc     |  N   |   symbol (list)    |                 cc list                  |
-| bodyType  |  N   |       symbol       | type of email body. Can be ‘text or ‘html. Default is ‘text\ |
+| bodyType  |  N   |       symbol       | type of email body. Can be \`text or \`html. Default is \`text |
 |   debug   |  N   |      integer       | Debug level. 0=no output, 1=normal output,2=verbose output. Default is 1 |
+
 An example is:
 
     q).email.send[`to`subject`body`debug!(`$"test@aquaq.co.uk";"test email";("hi";"this is an email from torq");1i)]
@@ -406,7 +407,7 @@ timezone.q
 
 A slightly customised version of the timezone conversion functionality
 from code.kx. It loads a table of timezone information from
-\$KDBCONFIG. See .api.p.tz.\*for more details.
+$KDBCONFIG. See .api.p.tz.\*for more details.
 
 <a name="com"></a>
 
@@ -558,7 +559,8 @@ dictionary should/can have the following fields:
 |    separator    |  Y   | char\[list\] | Delimiting character. Enlist it if first line of file is header data |
 |    tablename    |  Y   |    symbol    |      Name of table to write data to      |
 |      dbdir      |  Y   |    symbol    |        Directory to write data to        |
-|  partitiontype  |  N   |    symbol    | Partitioning to use. Must be one of ‘date‘month‘year‘int. Default is ‘date |
+|  partitiontype  |  N   |    symbol    | Partitioning to use. Must be one of 
+\`date\`month\`year\`int. Default is \`date |
 |  partitioncol   |  N   |    symbol    | Column to use to extract partition information.Default is `time |
 | dataprocessfunc |  N   |   function   | Diadic function to process data after it has been read in. First argument is load parameters dictionary, second argument is data which has been read in. Default is {[x;y] y} |
 |    chunksize    |  N   |     int      | Data size in bytes to read in one chunk. Default is 100 MB |
@@ -675,7 +677,7 @@ The sort utilities allow the sort order and attributes of tables to be
 globally defined. This helps to manage the code base when the data can
 potentially be written from multiple locations (e.g. written from the
 RDB, loaded from flat file, replayed from the tickerplant log). The
-configuration is defined in a csv which defaults to \$KDBCONFG/sort.csv.
+configuration is defined in a csv which defaults to $KDBCONFG/sort.csv.
 The default setup is that every table is sorted by sym and time, with a
 p attribute on sym (this is the standard kdb+ tick configuration).
 

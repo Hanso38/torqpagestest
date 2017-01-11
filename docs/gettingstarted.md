@@ -136,7 +136,7 @@ identification purposes. A process can determine its type and name in a
 number of ways:
 
 1.  From the process file in the default location of
-    \$KDBCONFIG/process.csv;
+    $KDBCONFIG/process.csv;
 
 2.  From the process file defined using the command line parameter
     -procfile;
@@ -180,7 +180,7 @@ Logging
 
 By default, each process will redirect output to a standard out log and
 a standard error log, and create aliases for them. These will be rolled
-at midnight on a daily basis. They are all written to the \$KDBLOGS
+at midnight on a daily basis. They are all written to the $KDBLOGS
 directory. The log files created are:
 
   |Log File|                          Description|
@@ -203,7 +203,7 @@ Configuration Loading
 ### Default Configuration Loading
 
 Default process configuration is contained in q scripts, and stored in
-the \$KDBCONFIG /settings directory. Each process tries to load all the
+the $KDBCONFIG /settings directory. Each process tries to load all the
 configuration it can find and will attempt to load three configuration
 files in the below order:-
 
@@ -222,9 +222,9 @@ will override anything loaded previously.
 ### Application Configuration Loading
 
 Application specific configuration can be stored in a user defined
-directory and made visible to TorQ by setting the \$KDBAPPCONFIG
-environment variable. If \$KDBAPPCONFIG is set, then TorQ will search
-the \$KDBAPPCONFIG/settings directory and load all configuration it can
+directory and made visible to TorQ by setting the $KDBAPPCONFIG
+environment variable. If $KDBAPPCONFIG is set, then TorQ will search
+the $KDBAPPCONFIG/settings directory and load all configuration it can
 find. Application configuration will be loaded after all default
 configuration in the following order:-
 
@@ -249,16 +249,16 @@ All configuration is loaded before code.
 Code Loading
 ------------
 
-Code is loaded from the \$KDBCODE directory. There is also a common
+Code is loaded from the $KDBCODE directory. There is also a common
 codebase, a codebase for each process type, and a code base for each
 process name, contained in the following directories and loaded in this
 order:
 
--   \$KDBCODE/common: shared codebase loaded by all processes;
+-   $KDBCODE/common: shared codebase loaded by all processes;
 
--   \$KDBCODE/\[proctype\]: code for a specific process type;
+-   $KDBCODE/\[proctype\]: code for a specific process type;
 
--   \$KDBCODE/\[procname\]: code for a specific process name;
+-   $KDBCODE/\[procname\]: code for a specific process name;
 
 For any directory loaded, the load order can be specified by adding
 order.txt to the directory. order.txt dictates the order that files in

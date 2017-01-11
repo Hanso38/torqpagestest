@@ -3,7 +3,7 @@ Message Handlers
 ================
 
 There is a separate code directory containing message handler
-customizations. This is found at \$KDBCODE/handlers. Much of the code is
+customizations. This is found at $KDBCODE/handlers. Much of the code is
 derived from Simon Garland’s contributions to
 [code.kx](http://code.kx.com/wiki/Contrib/UsingDotz).
 
@@ -34,7 +34,7 @@ off by setting .proc.loadhandlers to 0b in the configuration file.
 Each customization can be turned on or off individually from the
 configuration file(s). Each script can be extensively customised using
 the configuration file. Example customization for logusage.q, taken from
-\$KDBCONFIG/settings/default.q is below. Please see default.q for the
+$KDBCONFIG/settings/default.q is below. Please see default.q for the
 remaining configuration of the other message handler files.
 
     /- Configuration used by the usage functions - logging of client interaction
@@ -125,7 +125,7 @@ control of several aspects:
 -   the maximum size of the result set returned to a client.
 
 The access restrictions are loaded from csv files. The permissions files
-are stored in \$KDBCONFIG/permissions.
+are stored in $KDBCONFIG/permissions.
 
 |       File        |               Description                |
 | :---------------: | :--------------------------------------: |
@@ -194,6 +194,239 @@ versions of KDB+ prior to 3.3, this feature must be disabled. An attempt
 to use this feature on previous KDB+ versions will result in an error
 and the relevant process exiting.
 
+permissions.q
+-------------
+
+permissions.q is used to control client access to a server process. It
+allows:
+
+-   Access control via username/password access, either in combination
+    with the -u/U process flags or in place of them.
+
+-   Definition of user groups, which control variable access.
+
+-   Definition of user roles, which allow control over function
+    execution.
+
+-   Deeper control over table subsetting through the use of “virtual
+    tables”, using enforced where clauses.
+
+Access restriction in TorQ can be enabled on all processes, each of
+which can then load the default.q in $KDBCONFIG/permissions/, which
+adds users, groups and roles allowing standard operation of TorQ. The
+admin user and role by default can access all functions, and each of the
+system processes has access only to the required system functions.
+
+Permissions are enabled or disabled on a per-process basis through
+setting .pm.enabled as 1b or 0b at process load (set to 0b by default).
+A permissioned process can safely interact with a non-permissioned
+process while still controlling access to itself.
+
+The access schema consists of 7 control tables:
+
+
+  |**Name**       | **Descriptions**|
+  |---------------| ------------------------------------------------------------------------------------------------------------|
+  |User           |Username, locality, encryption type and password hash|
+  |Usergroup      |User and their group.|
+  |Userrole       |User and role.|
+  |Functiongroup  |Functions and their group|
+  |Function       |Function names, the roles which can access them, and a lambda checking the parameters those roles can use.|
+  |Access         |Variable names, the groups which can access them, and the read or write access level.|
+  |Virtualtable   |Virtual table name, main table name, and the where clause it enforces on access to that table.|
+
+  
+In addition to groupinfo and roleinfo tables, which contain the
+group/role name and a string describing each group and role. A user can
+belong to multiple groups, and have multiple roles. In particular the
+schema supports group hierarchy, where a user group can be listed as a
+user in the group table, and inherit all the permissions from another
+other group, effectively inheriting the second group itself.
+
+A user belonging to a group listed in the access table will have the
+specified level of access (read or write) to that group’s variables,
+e.g.
+
+
+  |Table       |Group      |Level|
+  |-------| -------------- |-------|
+  |quote |    headtrader   |write|
+  |trade|    juniortrader | read|
+
+  
+Here, users in headtrader will have write access to the quote table,
+while juniortrader group has read access to the trade table. If
+headtraders have been set to inherit the juniortrader group, they will
+also have read access to trade. Note that read access is distinct from
+write access. Headtraders in this circumstance do not have implicit read
+access to the quote table. This control is for direct name access only.
+Selects, execs and updates are controlled via the function table, as
+below.
+
+The permissions script can be set to have permissive mode enabled with
+permissivemode:1b (disabled by default). When enabled at script loading,
+this bypasses access checks on variables which are not listed in the
+access table, effectively auto-whitelisting any variables not listed in
+the access table for all users, which may be useful in partly restricted
+development environments.
+
+Function access is controlled through non-hierarchical roles. A user
+attempting to run a named function will have their access checked
+against the function table through their role, for example, trying to
+run a function timedata\[syms;bkttype\], which selects from a table by a
+time bucket type bkttype on xbar:
+
+
+|**Function** | **Role** | **Param. Check** |
+|------|------|------|
+|timedata | quant | {1b}|
+|timedata| normal user | {x[\`bkttype] in \`hh}|
+|select| quant |{1b}|
+
+The parameter check in the third column must be a lambda accepting a
+dictionary of parameters and their values, which can then return a
+boolean if some parameter condition is met. Here, any normal user must
+have their bucket type as an hour. If they try anything else, the
+function is not permitted. This could be extended to restriction to
+certain syms as well, in this example, the quant can run this function
+with any parameters. Anything passed to the param. check function
+returns 1b. A quant having general select access is listed as having
+1b in the param. check.
+
+Further restriction of data can be achieved with virtual tables, via
+which users can be restricted to having a certain subset of data from a
+main table available. To avoid the need to replicate a potentially large
+subset of a table into a separately-controlled variable, this is done
+through pointing to the table under a different name via a where clause,
+e.g.
+
+
+  |**Virtual Table**  |  **Table**|  **Where Clause**|
+  |------------------- |----------- |---------------------------------|
+  |trade\_lse      |       trade   | ,(in;\`src;“L”)|
+  |quote\_new     |        quote   | ,(&gt;;\`time;(-;\`.z.p;01:00))|
+
+ 
+When a select from trade\_lse is performed, a select on trade is
+modified to contain the where clause above. Access to virtual tables can
+be controlled identically to access to real tables through the access
+table.
+
+If the process is given the flag “-public 1”, it will run in public
+access mode. This allows a user to log in without a password and be
+given the publicuser role and membership of the public group, which can
+be configured as any other group or role.
+
+The permissions control has a default size restriction of 2GB, set (as
+bytes) on .pm.maxsize. This is a global restriction and is not affected
+by user permissions.
+
+Adding to the groups and roles is handled by the functions:
+
+    adduser[`user;`locality;`hash type; md5"password"]
+    removeuser[`user]
+    addgroup[`groupname; "description"]
+    removegroup[`groupname]
+    addrole[`rolename; "description"]
+    removerole[`rolename]
+    addtogroup[`user;`groupname]
+    removefromgroup[`user; `groupname]
+    assignrole[`user; `rolename]
+    unassignrole[`user; `rolename]
+    addfunction[`function; `functiongroup]
+    removefunction[`function; `functiongroup]
+    grantaccess[`variable; `groupname; `level]
+    revokeaccess[`variable; `groupname; `level]
+    grantfunction[`function; `rolename; {paramCheckFn}]
+    revokefunction[`function; `rolename]
+    createvirtualtable[`vtablename; `table; ,(whereclause)]
+    removevirtualtable[`vtablename]
+    cloneuser[`user;`newuser;"password"]
+
+which are further explained in the script API.
+
+Permission control operates identically on the gateway. A user connected
+to the gateway must have access to the gateway, and their roles must
+have access to the .gw.syncexec or .gw.asyncexec functions.
+
+### Usage Example
+
+To connect to a permissioned RDB in the TorQ system, a group and role
+for the user must be established. If the RDB contains the tables trade,
+quote, and depth, and the process contains the functions getdata\[syms,
+bkttype,bktsize\] and hloc\[table\], restricted access would be
+configured like so:
+
+    .pm.adduser[`adam;`local;`md5;md5"pass"]
+    .pm.adduser[`bob;`local;`md5;md5"pass"]
+
+    .pm.addtogroup[`adam;`fulluser]
+    .pm.addtogroup[`bob;`partuser]
+    .pm.addtogroup[`fulluser;`partuser]
+    .pm.grantaccess[`quote;`fulluser;`read]
+    .pm.grantaccess[`trade;`partuser;`read]
+
+    .pm.createvirtualtable[`quotenew;`quote;enlist(>;`time;(-;`.z.p;01:00))]
+    .pm.grantaccess[`quotenew;`partuser;`read]
+
+    .pm.assignrole[`adam;`toplevel]
+    .pm.assignrole[`bob;`lowlevel]
+    .pm.grantfunction[`getdata;`toplevel;{1b}]
+    .pm.grantfunction[`getdata;`lowlevel;{x[`syms] in `GOOG}]
+    .pm.grantfunction[`hloc;`toplevel;{1b}]
+    .pm.grantfunction[`hloc;`lowlevel;{x[`table] in `trade}]
+
+This provides a system in which Bob can access only the trade table,
+while Adam has access to the trade table and quote table (through
+inheritance from Bob’s group). Through a virtual table, if Bob runs
+“select from quotenew”, he is able to get a table of the last hour of
+quotes. When the system is started in normal mode, there is no IPC
+access to the depth table, however if the system was started in
+permissive mode, in this case any user who could log in could access
+depth.
+
+Adam can run the getdata function however he wants, and Bob can only run
+it against sym GOOG. Similarly Adam can run hloc against any table, but
+Bob can only look at trade with it.
+
+Additionally, any system calls would need to be actively permissioned in
+the same way, after defining a systemuser role (or expanding the default
+role in TorQ). The superuser is given global function access by
+assigning them .pm.ALL in the function table, for example a tickerplant
+pushing to the RDB would need to have a user and role defined:
+
+    .pm.adduser[`ticker;`local;`md5;md5"plant"]
+    .pm.assignrole[`ticker;`tp]
+
+And then grant that role access to the .u.upd function:
+
+    .pm.grantfunction[`.u.upd;`tp;{1b}]
+
+Although the .u.upd function updates to a table, there is no need to
+grant direct access to that table.
+
+### Gateway Example
+
+The gateway user will have superuser role by default. The execution of a
+function passed through the gateway is checked against the user who sent
+the call. This should not be modified.
+
+Within the gateway itself, access to target processes can be controlled
+via the function table. For example, if Adam in the previous example was
+allowed to access only the RDB with .gw.syncexec, you could use:
+
+    .pm.grantfunction[`.gw.syncexec;`toplevel;{x[`1] in `rdb}]
+
+Since .gw.syncexec is a projection, the arguments supplied are checked
+in order, with dictionary keys \`0\`1\`2... etc. This could be further
+extended to restrict access to queries with the
+.pm.allowed[user;query] function, which checks permissions of the
+current user as listed on the gateway permission tables:
+
+    .pm.grantfunction[`.gw.syncexec;`toplevel;
+        {.pm.allowed[.z.u;x[`0]] and x[`1] in `rdb}]
+
+
 <a name="dia"></a>
 
 Diagnostic Reporting
@@ -220,238 +453,3 @@ this information to implement reports on the behaviour of each process
 and the overall health of the system. Similarly it would be
 straightforward to set up periodic publication to a central repository
 to have a single point for system diagnostic statistics.
-
-<a name="conn"></a>
-
-Connection Management 
-=====================
-
-trackservers.q is used to register and maintain handles to external
-servers. It is a heavily modified version of trackservers.q from
-code.kx. All the options are described in the default config file. All
-connections are tracked in the .servers.SERVERS table. When the handle
-is used the count and last query time are updated.
-
-    q).servers.SERVERS 
-    procname     proctype  hpup                            w  hits startp                        lastp                         endp                          attributes                   
-    ---------------------------------------------------------------------------------
-    discovery1   discovery :aquaq:9996    0                                  2014.01.08D11:13:10.583056000                               ()!()                        
-    discovery2   discovery :aquaq:9995 6  0    2014.01.07D16:44:47.175757000 2014.01.07D16:44:47.174408000                               ()!()                        
-    rdb_europe_1 rdb       :aquaq:9998 12 0    2014.01.07D16:46:47.897910000 2014.01.07D16:46:47.892901000 2014.01.07D16:46:44.626293000 `datacentre`country!`essex`uk
-    rdb1         rdb       :aquaq:5011 7  0    2014.01.07D16:44:47.180684000 2014.01.07D16:44:47.176994000                               `datacentre`country!`essex`uk
-    rdb_europe_1 hdb       :aquaq:9997    0                                  2014.01.08D11:13:10.757801000                               ()!()                        
-    hdb1         hdb       :aquaq:9999    0                                  2014.01.08D11:13:10.757801000                               ()!()                        
-    hdb2         hdb       :aquaq:5013 8  0    2014.01.07D16:44:47.180684000 2014.01.07D16:44:47.176994000                               `datacentre`country!`essex`uk
-    hdb1         hdb       :aquaq:5012 9  0    2014.01.07D16:44:47.180684000 2014.01.07D16:44:47.176994000                               `datacentre`country!`essex`uk
-    
-    q)last .servers.SERVERS 
-    procname  | `hdb2
-    proctype  | `hdb
-    hpup      | `:aquaq:5013
-    w         | 8i
-    hits      | 0i
-    startp    | 2014.01.08D11:51:01.928045000
-    lastp     | 2014.01.08D11:51:01.925078000
-    endp      | 0Np
-    attributes| `datacentre`country!`essex`uk
-
-<a name="Connect"></a>
-
-Connections
------------
-
-Processes locate other processes based on their process type. The
-location is done either statically using the process.csv file or
-dynamically using a discovery service. It is recommended to use the
-discovery service as it allows the process to be notified as new
-processes become available.
-
-The main configuration variable is .servers.CONNECTIONS, which dictates
-which process type(s) to create connections to. .servers.startup\[\]
-must be called to initialise the connections. When connections are
-closed, the connection table is automatically updated. The process can
-be set to periodically retry connections.
-
-<a name="Proc"></a>
-
-Process Attributes
-------------------
-
-Each process can report a set of attributes. When process A connects to
-process B, process A will try to retrieve the attributes of process B.
-The attributes are defined by the result of the .proc.getattributes
-function, which is by default an empty dictionary. Attributes are used
-to retrieve more detail about the capabilities of each process, rather
-than relying on the broad brush process type and process name
-categorization. Attributes can be used for intelligent query routing.
-Potential fields for attributes include:
-
--   range of data contained in the process;
-
--   available tables;
-
--   instrument universe;
-
--   physical location;
-
--   any other fields of relevance.
-
-<a name="pass"></a>
-
-Connection Passwords
---------------------
-
-The password used by a process to connect to external processes is
-retrieved using the .servers.loadpassword function call. By default,
-this will read the password from a txt file contained in
-\$KDBCONFIG/passwords. A default password can be used, which is
-overridden by one for the process type, which is itself overridden by
-one for the process name. For greater security, the
-.servers.loadpassword function should be modified.
-
-<a name="handle"></a>
-
-Retrieving and Using Handles
-----------------------------
-
-A function .servers.getservers is supplied to return a table of handle
-information. .servers.getservers takes five parameters:
-
--   type-or-name: whether the lookup is to be done by type or name (can
-    be either proctype or procname);
-
--   types-or-names: the types or names to retrieve e.g. hdb;
-
--   required-attributes: the dictionary of attributes to match on;
-
--   open-dead-connections: whether to re-open dead connections;
-
--   only-one: whether we only require one handle. So for example if 3
-      services of the supplied type are registered, and we have an open
-      handle to 1 of them, the open handle will be returned and the others
-      left closed irrespective of the open-dead-connections parameter.
-
-.servers.getservers will compare the required parameters with the
-available parameters for each handle. The resulting table will have an
-extra column called attribmatch which can be used to determine how good
-a match the service is with the required attributes. attribmatch is a
-dictionary of (required attribute key) ! (Boolean full match;
-intersection of attributes).
-
-    q).servers.SERVERS 
-    procname     proctype  hpup                            w hits startp                        lastp                         endp attributes                   
-    ---------------------------------------------------------------------------------
-    discovery1   discovery :aquaq:9996   0                                  2014.01.08D11:51:01.922390000      ()!()                        
-    discovery2   discovery :aquaq:9995 6 0    2014.01.08D11:51:01.923812000 2014.01.08D11:51:01.922390000      ()!()                        
-    rdb_europe_1 rdb       :aquaq:9998   0                                  2014.01.08D11:51:38.347598000      ()!()                        
-    rdb_europe_2 rdb       :aquaq:9997   0                                  2014.01.08D11:51:38.347598000      ()!()                        
-    rdb1         rdb       :aquaq:5011 7 0    2014.01.08D11:51:01.928045000 2014.01.08D11:51:01.925078000      `datacentre`country!`essex`uk
-    hdb3         hdb       :aquaq:5012 9 0    2014.01.08D11:51:38.349472000 2014.01.08D11:51:38.347598000      `datacentre`country!`essex`uk
-    hdb2         hdb       :aquaq:5013 8 0    2014.01.08D11:51:01.928045000 2014.01.08D11:51:01.925078000      `datacentre`country!`essex`uk
-    
-    /- pull back hdbs.  Leave the attributes empty
-    q).servers.getservers[`proctype;`hdb;()!();1b;f0b] 
-    procname proctype lastp                         w hpup        attributes                    attribmatch
-    -------------------------------------------------------------------------------
-    hdb3     hdb      2014.01.08D11:51:38.347598000 9 :aquaq:5012 `datacentre`country!`essex`uk ()!()      
-    hdb2     hdb      2014.01.08D11:51:01.925078000 8 :aquaq:5013 `datacentre`country!`essex`uk ()!()      
-    
-    /- supply some attributes
-    q).servers.getservers[`proctype;`hdb;(enlist`country)!enlist`uk;1b;0b] 
-    procname proctype lastp                         w hpup        attributes                    attribmatch           
-    -------------------------------------------------------------------------------
-    hdb3     hdb      2014.01.08D11:51:38.347598000 9 :aquaq:5012 `datacentre`country!`essex`uk (,`country)!,(1b;,`uk)
-    hdb2     hdb      2014.01.08D11:51:01.925078000 8 :aquaq:5013 `datacentre`country!`essex`uk (,`country)!,(1b;,`uk)
-    q).servers.getservers[`proctype;`hdb;`country`datacentre!`uk`slough;1b;0b]                                                                                                                                                                                                    
-    procname proctype lastp                         w hpup        attributes                    attribmatch                                    
-    -------------------------------------------------------------------------------
-    hdb3     hdb      2014.01.08D11:51:38.347598000 9 :aquaq:5012 `datacentre`country!`essex`uk `country`datacentre!((1b;,`uk);(0b;`symbol$()))
-    hdb2     hdb      2014.01.08D11:51:01.925078000 8 :aquaq:5013 `datacentre`country!`essex`uk `country`datacentre!((1b;,`uk);(0b;`symbol$()))
-
-.servers.getservers will try to automatically re-open connections if
-required.
-
-    q).servers.getservers[`proctype;`rdb;()!();1b;0b] 
-    2014.01.08D12:01:06.023146000|aquaq|gateway1|INF|conn|attempting to open handle to :aquaq:9998
-    2014.01.08D12:01:06.023581000|aquaq|gateway1|INF|conn|connection to :aquaq:9998 failed: hop: Connection refused
-    2014.01.08D12:01:06.023597000|aquaq|gateway1|INF|conn|attempting to open handle to :aquaq:9997
-    2014.01.08D12:01:06.023872000|aquaq|gateway1|INF|conn|connection to :aquaq:9997 failed: hop: Connection refused
-    procname proctype lastp                         w hpup         attributes                    attribmatch
-    -------------------------------------------------------------------------------
-    rdb1     rdb      2014.01.08D11:51:01.925078000 7 :aquaq:5011 `datacentre`country!`essex`uk ()!()      
-    
-    /- If we only require one connection, and we have one open,then it doesn't retry connections
-    q).servers.getservers[`proctype;`rdb;()!();1b;1b] 
-    procname proctype lastp                         w hpup        attributes                    attribmatch
-    -------------------------------------------------------------------------------
-    rdb1     rdb      2014.01.08D11:51:01.925078000 7 :aquaq:5011 `datacentre`country!`essex`uk ()!()      
-
-There are two other functions supplied for retrieving server details,
-both of which are based on .servers.getservers. .servers.gethandlebytype
-returns a single handle value, .servers.gethpupbytype returns a single
-host:port value. Both will re-open connections if there are not any
-valid connections. Both take two parameters:
-
--   types: the type to retrieve e.g. hdb;
-
--   selection-algorithm: can be one of any, last or roundrobin.
-
-<a name="nontorq"></a>
-
-Connecting To Non-TorQ Processes
---------------------------------
-
-Connections to non-torq (external) processes can also be established.
-This is useful if you wish to integrate TorQ with an existing
-infrastructure. Any process can connect to external processes, or it can
-be managed by the discovery service only. Every external process should
-have a type and name in the same way as TorQ processes, to enable them
-to be located and used as required.
-
-Non-TorQ processes need to be listed by default in
-\$KDBCONFIG/settings/nontorqprocess.csv. This file has the same format
-as the standard process.csv file. The location of the non-TorQ process
-file can be adjusted using the .servers.NONTORQPROCESSFILE variable. To
-enable connections, set .servers.TRACKNONTORQPROCESS to 1b.
-
-Example of nontorqprocess.csv file:
-
-    host,port,proctype,procname
-    aquaq,5533,hdb,extproc01
-    aquaq,5577,hdb,extproc02
-
-<a name="man"></a>
-
-Manually Adding And Using Connections
--------------------------------------
-
-Connections can also be manually added and used. See .api.p“.servers.\*”
-for details.
-
-<a name="ipc"></a>
-
-IPC types
----------
-
-In version kdb+ v3.4, two new IPC connection types were added. These new
-types are unix domain sockets and SSL/TLS (tcps). The incoming
-connections to a proctype can be set by updating .servers.SOCKETTYPE.
-
-In the settings example below, everything that connects to the
-tickerplant will use unix domain sockets.
-
-    \d .servers 
-    SOCKETTYPE:enlist[`tickerplant]!enlist `unix 
-
-Attempting to open a unix domain socket connection to a process which
-has an older kdb+ version will fail. We allow for processes to fallback
-to tcp if this happens by setting .servers.SOCKETFALLBACK to true. It
-will not fallback if the connection error message returned is one of the
-following : timeout, access. It will also not fallback for SSL/TLS
-(tcps) due to security concerns.
-
-At the time of writing, using unix domain sockets syntax on windows will
-appear to work whilst it’s actually falling back to tcp in the
-background. This can be misleading so we disabled using them on windows.
-
-
